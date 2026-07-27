@@ -11,9 +11,9 @@
 :root{
   --bg:#050B1C; --bg2:#0A1430; --ink:#F2F7FF; --dim:#8FA3C8; --line:rgba(150,180,255,.14);
   --bali1:#FF7A18; --bali2:#FF2E88;
+  --ubud1:#22C55E; --ubud2:#FBBF24;
   --gili1:#00F5CC; --gili2:#00A6FF;
   --lombok1:#FFD60A; --lombok2:#FF7A18;
-  --komodo1:#FF4D8D; --komodo2:#FF2E4C;
   --sgp1:#8A5CFF; --sgp2:#00D4FF;
   --r:22px;
 }
@@ -23,7 +23,7 @@ body{
   background:var(--bg); color:var(--ink);
   font-family:'Space Grotesk',sans-serif; overflow-x:hidden;
   background-image:
-    radial-gradient(900px 500px at 85% -5%, rgba(255,46,136,.14), transparent 60%),
+    radial-gradient(900px 500px at 85% -5%, rgba(34,197,94,.14), transparent 60%),
     radial-gradient(800px 500px at -10% 30%, rgba(0,166,255,.12), transparent 60%),
     radial-gradient(700px 500px at 60% 110%, rgba(138,92,255,.10), transparent 60%);
   background-attachment:fixed;
@@ -39,12 +39,12 @@ h1{
   font-size:clamp(48px,10.5vw,132px); text-transform:uppercase;
 }
 h1 .grad{
-  background:linear-gradient(92deg,#FF7A18 0%,#FF2E88 28%,#8A5CFF 55%,#00A6FF 78%,#00F5CC 100%);
+  background:linear-gradient(92deg,#FF7A18 0%,#FF2E88 22%,#FBBF24 45%,#22C55E 62%,#00A6FF 82%,#8A5CFF 100%);
   background-size:220% 100%; -webkit-background-clip:text; background-clip:text; color:transparent;
   animation:shift 9s ease-in-out infinite alternate;
 }
 @keyframes shift{to{background-position:100% 0}}
-.hero-sub{margin-top:26px; max-width:560px; color:var(--dim); font-size:17px; line-height:1.6}
+.hero-sub{margin-top:26px; max-width:580px; color:var(--dim); font-size:17px; line-height:1.6}
 .hero-sub b{color:var(--ink)}
 .status{
   margin-top:34px; display:inline-flex; align-items:center; gap:12px;
@@ -75,15 +75,16 @@ nav::-webkit-scrollbar{display:none}
 }
 .chip:hover{transform:translateY(-2px)}
 .chip[data-s="bali"]:hover{box-shadow:0 6px 22px -6px var(--bali2)}
+.chip[data-s="ubud"]:hover{box-shadow:0 6px 22px -6px var(--ubud1)}
 .chip[data-s="gili"]:hover{box-shadow:0 6px 22px -6px var(--gili2)}
 .chip[data-s="lombok"]:hover{box-shadow:0 6px 22px -6px var(--lombok1)}
-.chip[data-s="komodo"]:hover{box-shadow:0 6px 22px -6px var(--komodo1)}
 .chip[data-s="sgp"]:hover{box-shadow:0 6px 22px -6px var(--sgp1)}
 
 /* ---------- MAP ---------- */
 .map-wrap{padding:64px 6vw 30px}
 .sec-title{font-family:'Unbounded'; font-weight:800; font-size:clamp(24px,4vw,40px); text-transform:uppercase; margin-bottom:8px}
-.sec-sub{color:var(--dim); margin-bottom:26px; max-width:640px; line-height:1.6}
+.sec-sub{color:var(--dim); margin-bottom:26px; max-width:660px; line-height:1.6}
+.sec-sub b{color:var(--ink)}
 #map{height:480px; border-radius:var(--r); border:1px solid var(--line); box-shadow:0 30px 80px -30px rgba(0,166,255,.25)}
 .leaflet-container{background:#04101E; font-family:'Space Grotesk'}
 .pin{position:relative}
@@ -96,6 +97,7 @@ nav::-webkit-scrollbar{display:none}
 .legend span{display:inline-flex; align-items:center; gap:8px}
 .lg{width:26px;height:0;border-top:3px solid #6FA8FF}
 .lg.dash{border-top-style:dashed}
+.lg.dotted{border-top-style:dotted; border-top-width:4px}
 
 /* ---------- STOPS ---------- */
 .stops{padding:40px 6vw 20px; display:grid; gap:52px}
@@ -108,15 +110,15 @@ nav::-webkit-scrollbar{display:none}
 .stop-head{padding:34px 34px 26px; position:relative; overflow:hidden}
 .stop-head::before{content:""; position:absolute; inset:0; opacity:.16}
 .stop[data-s="bali"] .stop-head::before{background:linear-gradient(120deg,var(--bali1),var(--bali2))}
+.stop[data-s="ubud"] .stop-head::before{background:linear-gradient(120deg,var(--ubud1),var(--ubud2))}
 .stop[data-s="gili"] .stop-head::before{background:linear-gradient(120deg,var(--gili1),var(--gili2))}
 .stop[data-s="lombok"] .stop-head::before{background:linear-gradient(120deg,var(--lombok1),var(--lombok2))}
-.stop[data-s="komodo"] .stop-head::before{background:linear-gradient(120deg,var(--komodo1),var(--komodo2))}
 .stop[data-s="sgp"] .stop-head::before{background:linear-gradient(120deg,var(--sgp1),var(--sgp2))}
 .stop-kicker{font-size:12px; letter-spacing:.28em; text-transform:uppercase; font-weight:700; margin-bottom:10px; position:relative}
 .stop[data-s="bali"] .stop-kicker{color:var(--bali1)}
+.stop[data-s="ubud"] .stop-kicker{color:var(--ubud1)}
 .stop[data-s="gili"] .stop-kicker{color:var(--gili1)}
 .stop[data-s="lombok"] .stop-kicker{color:var(--lombok1)}
-.stop[data-s="komodo"] .stop-kicker{color:var(--komodo1)}
 .stop[data-s="sgp"] .stop-kicker{color:var(--sgp2)}
 .stop-name{font-family:'Unbounded'; font-weight:800; font-size:clamp(26px,4.4vw,44px); text-transform:uppercase; position:relative}
 .stop-tag{position:relative; color:var(--dim); margin-top:10px; max-width:620px; line-height:1.6}
@@ -131,9 +133,9 @@ nav::-webkit-scrollbar{display:none}
   font-family:'Unbounded'; font-weight:800; font-size:15px; border:1px solid var(--line);
 }
 .stop[data-s="bali"] .dnum{background:linear-gradient(140deg,rgba(255,122,24,.25),rgba(255,46,136,.25))}
+.stop[data-s="ubud"] .dnum{background:linear-gradient(140deg,rgba(34,197,94,.25),rgba(251,191,36,.25))}
 .stop[data-s="gili"] .dnum{background:linear-gradient(140deg,rgba(0,245,204,.22),rgba(0,166,255,.22))}
 .stop[data-s="lombok"] .dnum{background:linear-gradient(140deg,rgba(255,214,10,.22),rgba(255,122,24,.22))}
-.stop[data-s="komodo"] .dnum{background:linear-gradient(140deg,rgba(255,77,141,.25),rgba(255,46,76,.25))}
 .stop[data-s="sgp"] .dnum{background:linear-gradient(140deg,rgba(138,92,255,.25),rgba(0,212,255,.25))}
 .day h4{font-size:15px; margin-bottom:3px}
 .day p{color:var(--dim); font-size:14px; line-height:1.55}
@@ -146,13 +148,128 @@ nav::-webkit-scrollbar{display:none}
   flex:0 0 auto; width:22px; height:22px; border-radius:7px; border:2px solid rgba(150,180,255,.4);
   display:grid; place-items:center; font-size:13px; color:#04101E; font-weight:900; transition:all .2s;
 }
-.act.done .box{border-color:transparent; background:linear-gradient(140deg,#00F5CC,#00A6FF)}
-.act.done .txt{color:var(--dim); text-decoration:line-through}
+.act.done .box, .item.done .box{border-color:transparent; background:linear-gradient(140deg,#00F5CC,#00A6FF)}
+.act.done .txt, .item.done .txt{color:var(--dim); text-decoration:line-through}
 .act .em{font-size:18px}
 .progress{margin-top:18px; height:8px; border-radius:99px; background:rgba(255,255,255,.06); overflow:hidden}
 .progress i{display:block; height:100%; width:0; border-radius:99px; transition:width .5s ease; background:linear-gradient(90deg,#00F5CC,#00A6FF)}
 
+/* ---------- PLAN B ALT ---------- */
+.altplan{
+  margin:56px 6vw 20px; padding:34px; border-radius:var(--r);
+  background:linear-gradient(135deg, rgba(255,46,136,.09), rgba(0,166,255,.09));
+  border:1px solid rgba(255,46,136,.25); position:relative; overflow:hidden;
+}
+.altplan::before{
+  content:""; position:absolute; top:-40%; right:-10%; width:400px; height:400px;
+  background:radial-gradient(circle, rgba(0,245,204,.15), transparent 70%); pointer-events:none;
+}
+.alt-tag{
+  display:inline-block; font-size:11px; letter-spacing:.28em; text-transform:uppercase; font-weight:800;
+  background:linear-gradient(90deg,#FF2E88,#00A6FF); -webkit-background-clip:text; background-clip:text; color:transparent;
+  margin-bottom:12px;
+}
+.altplan h3{font-family:'Unbounded'; font-weight:800; font-size:clamp(22px,3.4vw,32px); text-transform:uppercase; margin-bottom:14px}
+.altplan p{color:var(--dim); line-height:1.6; margin-bottom:14px; max-width:720px}
+.altplan p b{color:var(--ink)}
+.altplan ul{list-style:none; padding:0; margin:16px 0 8px}
+.altplan li{padding:8px 0 8px 26px; position:relative; color:var(--ink); font-size:14.5px; line-height:1.5}
+.altplan li::before{
+  content:""; position:absolute; left:0; top:16px; width:14px; height:2px;
+  background:linear-gradient(90deg,#FF2E88,#00A6FF); border-radius:2px;
+}
+.altplan .meta{display:flex; gap:24px; flex-wrap:wrap; margin-top:18px; padding-top:18px; border-top:1px solid var(--line)}
+.altplan .meta div{display:flex; flex-direction:column}
+.altplan .meta span{font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--dim)}
+.altplan .meta b{font-family:'Unbounded'; font-weight:700; font-size:16px; margin-top:2px}
+
 /* ---------- CHECKLIST ---------- */
+.chk-sec{padding:64px 6vw 20px}
+.chk-progress{
+  border:1px solid var(--line); border-radius:var(--r);
+  padding:24px 28px; background:rgba(255,255,255,.03); backdrop-filter:blur(10px);
+  max-width:560px; margin-bottom:28px;
+}
+.chk-progress .top{display:flex; justify-content:space-between; align-items:center; margin-bottom:14px}
+.chk-progress .top .lbl{font-size:12px; letter-spacing:.24em; text-transform:uppercase; color:var(--dim)}
+.chk-progress .top .num{font-family:'Unbounded'; font-weight:800; font-size:22px}
+.chk-progress .top .num b{background:linear-gradient(90deg,#00F5CC,#00A6FF); -webkit-background-clip:text; background-clip:text; color:transparent}
+.chk-progress .bar{height:12px; border-radius:99px; background:rgba(255,255,255,.06); overflow:hidden}
+.chk-progress .bar i{display:block; height:100%; width:0; border-radius:99px; background:linear-gradient(90deg,#00F5CC,#00A6FF); transition:width .5s ease}
+
+.filters{display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-bottom:22px}
+.filter{
+  padding:8px 16px; border-radius:99px; font-family:'Space Grotesk'; font-weight:700; font-size:13px;
+  color:var(--ink); border:1px solid var(--line); background:rgba(255,255,255,.03);
+  cursor:pointer; transition:all .2s;
+}
+.filter.active{background:linear-gradient(135deg,#FF2E88,#8A5CFF); border-color:transparent}
+.filter:hover{transform:translateY(-2px)}
+.count-chip{margin-left:auto; font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:var(--dim)}
+
+.chk-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(330px,1fr)); gap:22px}
+.cat{
+  border:1px solid var(--line); border-radius:var(--r); overflow:hidden;
+  background:rgba(255,255,255,.025); display:flex; flex-direction:column;
+}
+.cat-head{padding:22px 24px 18px; position:relative; overflow:hidden}
+.cat-head::before{content:""; position:absolute; inset:0; opacity:.14}
+.cat[data-c="1"] .cat-head::before{background:linear-gradient(120deg,var(--bali1),var(--bali2))}
+.cat[data-c="2"] .cat-head::before{background:linear-gradient(120deg,var(--gili2),var(--sgp1))}
+.cat[data-c="3"] .cat-head::before{background:linear-gradient(120deg,var(--ubud1),var(--ubud2))}
+.cat[data-c="4"] .cat-head::before{background:linear-gradient(120deg,var(--lombok1),var(--lombok2))}
+.cat[data-c="5"] .cat-head::before{background:linear-gradient(120deg,var(--gili1),var(--gili2))}
+.cat[data-c="6"] .cat-head::before{background:linear-gradient(120deg,var(--sgp1),var(--bali2))}
+.cat[data-c="7"] .cat-head::before{background:linear-gradient(120deg,var(--gili1),var(--ubud1))}
+.cat-title{position:relative; display:flex; justify-content:space-between; align-items:flex-end; gap:10px}
+.cat-title h3{font-family:'Unbounded'; font-weight:800; font-size:17px; text-transform:uppercase; display:flex; gap:10px; align-items:center}
+.cat-title h3 .em{font-size:21px}
+.cat-title .cat-count{font-family:'Unbounded'; font-weight:700; font-size:14px; color:var(--dim); white-space:nowrap}
+.cat-title .cat-count b{color:var(--ink)}
+.cat-bar{position:relative; margin-top:12px; height:6px; border-radius:99px; background:rgba(255,255,255,.08); overflow:hidden}
+.cat-bar i{display:block; height:100%; width:0; border-radius:99px; transition:width .4s}
+.cat[data-c="1"] .cat-bar i{background:linear-gradient(90deg,var(--bali1),var(--bali2))}
+.cat[data-c="2"] .cat-bar i{background:linear-gradient(90deg,var(--gili2),var(--sgp1))}
+.cat[data-c="3"] .cat-bar i{background:linear-gradient(90deg,var(--ubud1),var(--ubud2))}
+.cat[data-c="4"] .cat-bar i{background:linear-gradient(90deg,var(--lombok1),var(--lombok2))}
+.cat[data-c="5"] .cat-bar i{background:linear-gradient(90deg,var(--gili1),var(--gili2))}
+.cat[data-c="6"] .cat-bar i{background:linear-gradient(90deg,var(--sgp1),var(--bali2))}
+.cat[data-c="7"] .cat-bar i{background:linear-gradient(90deg,var(--gili1),var(--ubud1))}
+
+.items{padding:14px 20px 8px; flex:1}
+.item{display:flex; align-items:center; gap:12px; padding:10px; border-radius:10px; cursor:pointer; transition:background .15s; user-select:none}
+.item:hover{background:rgba(255,255,255,.04)}
+.item.hidden{display:none}
+.txt{font-size:14.5px; flex:1; line-height:1.4}
+.del{
+  flex:0 0 auto; width:24px; height:24px; border-radius:6px; background:transparent;
+  border:1px solid transparent; color:var(--dim); font-size:15px; cursor:pointer; opacity:0;
+  transition:all .15s; display:grid; place-items:center; font-family:'Space Grotesk';
+}
+.item:hover .del{opacity:1}
+.del:hover{background:rgba(255,46,136,.15); color:#FF2E88; border-color:rgba(255,46,136,.3)}
+.add{padding:12px 20px 22px; border-top:1px dashed rgba(150,180,255,.12); display:flex; gap:8px}
+.add input{
+  flex:1; background:rgba(255,255,255,.04); border:1px solid var(--line); color:var(--ink);
+  font-family:'Space Grotesk'; font-size:14px; padding:10px 14px; border-radius:10px; outline:none;
+  transition:border-color .2s; min-width:0;
+}
+.add input:focus{border-color:#00F5CC}
+.add input::placeholder{color:var(--dim)}
+.add button{
+  flex:0 0 auto; width:40px; background:linear-gradient(140deg,#00F5CC,#00A6FF); border:none; border-radius:10px;
+  color:#04101E; font-size:20px; font-weight:900; cursor:pointer; transition:transform .1s; font-family:'Space Grotesk';
+}
+.add button:hover{transform:scale(1.05)}
+.add button:active{transform:scale(.95)}
+.reset{
+  margin-top:26px; border:1px solid rgba(255,46,136,.3); border-radius:99px; padding:10px 20px;
+  background:transparent; color:#FF2E88; font-family:'Space Grotesk'; font-weight:700; font-size:13px;
+  cursor:pointer; transition:all .2s;
+}
+.reset:hover{background:rgba(255,46,136,.1)}
+
+/* ---------- BOOKINGS ---------- */
 .book{padding:56px 6vw 40px}
 .book-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; margin-top:8px}
 .bk{
@@ -163,7 +280,7 @@ nav::-webkit-scrollbar{display:none}
 .bk h4{font-size:15px; margin-bottom:5px}
 .bk p{color:var(--dim); font-size:13.5px; line-height:1.55}
 .urgent{border-color:rgba(255,77,141,.5); box-shadow:0 0 30px -12px rgba(255,46,76,.5)}
-.urgent h4::after{content:"YA"; font-family:'Unbounded'; font-size:9px; letter-spacing:.14em; background:linear-gradient(90deg,var(--komodo1),var(--komodo2)); padding:3px 8px; border-radius:99px; margin-left:8px; vertical-align:2px}
+.urgent h4::after{content:"YA"; font-family:'Unbounded'; font-size:9px; letter-spacing:.14em; background:linear-gradient(90deg,#FF4D8D,#FF2E4C); padding:3px 8px; border-radius:99px; margin-left:8px; vertical-align:2px}
 
 footer{padding:50px 6vw 70px; color:var(--dim); font-size:13px; border-top:1px solid var(--line); margin-top:40px; text-align:center}
 footer b{font-family:'Unbounded'; color:var(--ink); letter-spacing:.06em}
@@ -173,14 +290,14 @@ footer b{font-family:'Unbounded'; color:var(--ink); letter-spacing:.06em}
 
 <!-- HERO -->
 <header class="hero">
-  <div class="eyebrow">2 – 18 Octubre 2026 · Cuadrilla de 28s</div>
+  <div class="eyebrow">2 – 18 Octubre 2026 · Pol · Pau · Alex · Dani · Hugo</div>
   <h1>Indo <span class="grad">✕</span> SGP<br><span class="grad">Island&nbsp;Run</span></h1>
-  <p class="hero-sub">Bali → Gili → Lombok → Komodo → Singapur. <b>Surf, buceo, dragones y fiesta</b>, siempre rumbo este. Esta página es vuestro cuaderno de a bordo: mapa, plan día a día y qué llevamos hecho.</p>
+  <p class="hero-sub">Uluwatu → Ubud → Gili → Lombok → Singapur. <b>Surf, buceo, arrozales y fiesta</b>, siempre rumbo este. Esta página es vuestro cuaderno de a bordo: mapa, plan día a día, checklist de maleta y qué llevamos hecho.</p>
   <div class="status"><span class="dot"></span><span id="statusTxt">Calculando…</span></div>
   <div class="hero-stats">
     <div class="hs"><div class="n">16</div><div class="l">días</div></div>
     <div class="hs"><div class="n">5</div><div class="l">paradas</div></div>
-    <div class="hs"><div class="n">4</div><div class="l">islas</div></div>
+    <div class="hs"><div class="n">5</div><div class="l">colegas</div></div>
     <div class="hs"><div class="n">2</div><div class="l">países</div></div>
   </div>
   <div class="wave"><svg viewBox="0 0 1200 60" preserveAspectRatio="none"><path d="M0,30 C150,60 300,0 450,30 C600,60 750,0 900,30 C1050,60 1200,0 1350,30 C1500,60 1650,0 1800,30 C1950,60 2100,0 2250,30 L2400,30 L2400,60 L0,60 Z" fill="rgba(0,166,255,.25)"/></svg></div>
@@ -188,11 +305,13 @@ footer b{font-family:'Unbounded'; color:var(--ink); letter-spacing:.06em}
 
 <!-- NAV -->
 <nav>
-  <a class="chip" data-s="bali" href="#bali">🌅 Bali</a>
+  <a class="chip" data-s="bali" href="#bali">🌅 Uluwatu</a>
+  <a class="chip" data-s="ubud" href="#ubud">🌾 Ubud</a>
   <a class="chip" data-s="gili" href="#gili">🐢 Gili</a>
   <a class="chip" data-s="lombok" href="#lombok">🏄 Lombok</a>
-  <a class="chip" data-s="komodo" href="#komodo">🦎 Komodo</a>
   <a class="chip" data-s="sgp" href="#sgp">🌃 Singapur</a>
+  <a class="chip" href="#plan-b">🌊 Plan B</a>
+  <a class="chip" href="#checklist">🎒 Checklist</a>
   <a class="chip" href="#reservas">📋 Reservas</a>
 </nav>
 
@@ -202,7 +321,8 @@ footer b{font-family:'Unbounded'; color:var(--ink); letter-spacing:.06em}
   <p class="sec-sub">Siempre hacia el este, sin volver atrás. Toca cada punto para saltar a su plan.</p>
   <div id="map"></div>
   <div class="legend">
-    <span><i class="lg"></i> Fast boat ⛴</span>
+    <span><i class="lg"></i> Barco ⛴</span>
+    <span><i class="lg dotted"></i> Coche 🚗</span>
     <span><i class="lg dash"></i> Vuelo ✈️</span>
   </div>
 </section>
@@ -210,75 +330,138 @@ footer b{font-family:'Unbounded'; color:var(--ink); letter-spacing:.06em}
 <!-- STOPS -->
 <main class="stops" id="stops"></main>
 
+<!-- PLAN B ALT -->
+<section class="altplan" id="plan-b">
+  <div class="alt-tag">Plan B · Alternativa · Con Nusa Penida</div>
+  <h3>¿Y si metemos Nusa Penida?</h3>
+  <p>El plan de arriba es el <b>confirmado</b>. Pero si el grupo cambia de idea y quiere añadir <b>Nusa Penida</b> (Kelingking Beach, Angel's Billabong, snorkel con mantas), esto es lo que cambia:</p>
+  <ul>
+    <li><b>Ubud pasa de 3 a 2 noches</b> (Mar 6 – Mié 7)</li>
+    <li><b>Jue 8:</b> traslado a Sanur y <b>day trip a Nusa Penida</b> (barco a primera hora, Kelingking, Angel's Billabong, snorkel con mantas en Manta Point). Noche en Sanur.</li>
+    <li><b>Vie 9:</b> fast boat a Gili T desde el propio puerto de Sanur ✅</li>
+    <li>Gili, Lombok y Singapur <b>no cambian</b></li>
+  </ul>
+  <div class="meta">
+    <div><span>Coste extra</span><b>~50 €/persona</b></div>
+    <div><span>Contra</span><b>Día intenso de traslados</b></div>
+    <div><span>Pro</span><b>Nadar con mantas 🐋</b></div>
+  </div>
+</section>
+
+<!-- CHECKLIST -->
+<section class="chk-sec" id="checklist">
+  <h2 class="sec-title">🎒 Checklist de maleta</h2>
+  <p class="sec-sub">Marca lo que ya tengas guardado y <b>añade lo tuyo con el +</b>. Cada uno tiene su propia lista guardada en su móvil, así que pasadle el link al grupo y cada cual va a lo suyo.</p>
+
+  <div class="chk-progress">
+    <div class="top">
+      <div class="lbl">Progreso total</div>
+      <div class="num"><b id="doneCount">0</b><span style="color:var(--dim)">/<span id="totalCount">0</span></span></div>
+    </div>
+    <div class="bar"><i id="totalBar"></i></div>
+  </div>
+
+  <div class="filters">
+    <button class="filter active" data-f="all">Todos</button>
+    <button class="filter" data-f="todo">Pendientes</button>
+    <button class="filter" data-f="done">✓ Hechos</button>
+    <div class="count-chip"><span id="filterCount"></span></div>
+  </div>
+
+  <div class="chk-grid" id="chkGrid"></div>
+
+  <button class="reset" id="resetBtn">↻ Resetear mi checklist</button>
+</section>
+
 <!-- BOOKINGS -->
 <section class="book" id="reservas">
   <h2 class="sec-title">Antes de despegar</h2>
   <p class="sec-sub">Lo que hay que dejar atado desde Barcelona, por orden de urgencia.</p>
   <div class="book-grid">
-    <div class="bk urgent"><span class="em">🦎</span><div><h4>Permiso Komodo (app SiOra)</h4><p>Cupo de 1.000 visitantes/día en 2026. Octubre se llena con meses de antelación. Reservar permiso + tour/buceo con operador con licencia.</p></div></div>
-    <div class="bk urgent"><span class="em">✈️</span><div><h4>Vuelo Lombok → Labuan Bajo (lun 12)</h4><p>Directo con Wings Air si opera ese día; plan B vía Bali. Pocas plazas: cuanto antes.</p></div></div>
-    <div class="bk urgent"><span class="em">🛫</span><div><h4>Vuelo Labuan Bajo → Singapur (jue 15)</h4><p>Scoot vuela directo jueves y domingo (estacional): confirmar que opera en octubre. Plan B: vía Bali.</p></div></div>
-    <div class="bk"><span class="em">⛴</span><div><h4>Fast boats</h4><p>Bali → Gili T (mar 6, ~2 h, 25–40 €) y Gili → Bangsal, Lombok (vie 9). Reservar online, salidas por la mañana.</p></div></div>
-    <div class="bk"><span class="em">🤿</span><div><h4>Centro de buceo en Komodo</h4><p>Con vuestro Open Water/Advanced vais sobrados. Reservad las inmersiones (Manta Point, Batu Bolong, Castle Rock) con el mismo operador del permiso.</p></div></div>
-    <div class="bk"><span class="em">🛏</span><div><h4>Alojamiento por bloques</h4><p>Canggu (3 n) · Gili T (3 n) · Kuta Lombok (3 n) · Labuan Bajo (3 n). En Singapur, casa del colega ✅.</p></div></div>
-    <div class="bk"><span class="em">🛂</span><div><h4>Visa on arrival + eSIM</h4><p>Indonesia: visa a la llegada (~35 €, se puede pagar online antes). eSIM regional para los dos países.</p></div></div>
-    <div class="bk"><span class="em">🩺</span><div><h4>Seguro con cobertura de buceo</h4><p>Que cubra buceo hasta 30/40 m y actividades acuáticas. Imprescindible para Komodo.</p></div></div>
+    <div class="bk urgent"><span class="em">✈️</span><div><h4>Vuelo intl. multi-city BCN → DPS + SIN → BCN</h4><p>Entrada por Bali, salida por Singapur. Octubre es temporada media: ~900-1.000 €. Reservar con 60-90 días de antelación para el mejor precio.</p></div></div>
+    <div class="bk urgent"><span class="em">🛫</span><div><h4>Vuelo directo Lombok → Singapur (jue 15)</h4><p>AirAsia y Scoot vuelan directo LOP → SIN (~3 h, 130-170 €). Descartado volver vía Bali: ahorraba ~45 €/pers pero costaba un día entero de aeropuertos.</p></div></div>
+    <div class="bk"><span class="em">🏡</span><div><h4>Villa en Bingin (Uluwatu) para 5</h4><p>3 hab. con piscina en zona alta: 180-260 €/noche. Airbnb/Booking, o directo por WhatsApp a la villa (10-20% más barato).</p></div></div>
+    <div class="bk"><span class="em">🌾</span><div><h4>Villa en Ubud para 5</h4><p>Villa selvática con arrozales y piscina infinity: 150-200 €/noche. Zonas top: Penestanan, Sayan, o cerca del centro.</p></div></div>
+    <div class="bk"><span class="em">⛴</span><div><h4>Fast boats y traslados</h4><p>Ubud → Padang Bai (~1 h en coche) + fast boat a Gili T (~1,5 h, 25-40 €). Gili → Bangsal, Lombok: barco corto (~15 min, 5 €).</p></div></div>
+    <div class="bk"><span class="em">🛏</span><div><h4>Alojamiento Gili + Lombok</h4><p>Gili T: bungalow/hotel 2-3 hab (~35 €/pers/noche). Kuta Lombok: villa con piscina 120-160 €/noche los 5. En Singapur: casa del colega ✅.</p></div></div>
+    <div class="bk"><span class="em">🛂</span><div><h4>Visa on arrival + eSIM</h4><p>Indonesia: VOA a la llegada (~35 €, mejor pre-pagar online en evisa.imigrasi.go.id y saltarse la cola). eSIM regional (Airalo, Holafly) para los dos países.</p></div></div>
+    <div class="bk"><span class="em">🩺</span><div><h4>Seguro con cobertura de buceo</h4><p>Que cubra buceo hasta 30-40 m y actividades acuáticas. IATI Mochilero o Chapka Cap Assistance, ~80 €/pers.</p></div></div>
   </div>
 </section>
 
 <footer>
   <b>INDO ✕ SGP · OCT 2026</b><br><br>
-  Hecho para la cuadrilla · Marca lo que vayáis haciendo y la web guarda el progreso 🤙
+  Hecho para la cuadrilla · Tu progreso se guarda en tu navegador 🤙
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script>
-/* ============ DATA ============ */
+/* ============ DATA · PARADAS ============ */
 const STOPS = [
   {
-    id:'bali', name:'Bali · Canggu + Uluwatu', kicker:'Parada 01 · Vie 3 – Lun 5 oct', em:'🌅',
-    tag:'Aterrizaje en el paraíso. Base en Canggu: surf por la mañana, beach clubs por la tarde y los acantilados de Uluwatu para los mejores atardeceres del viaje.',
-    lat:-8.66, lng:115.13, c1:'#FF7A18', c2:'#FF2E88',
+    id:'bali', name:'Bali · Uluwatu', kicker:'Parada 01 · Sáb 3 – Lun 5 oct', em:'🌅',
+    tag:'Aterrizaje en el paraíso — acantilados salvajes, playas de postal a las que se baja por escaleras excavadas en la roca y los mejores atardeceres del sudeste asiático. Villa en Bingin con vistas al Índico y fiesta a un scooter.',
+    lat:-8.83, lng:115.09, c1:'#FF7A18', c2:'#FF2E88',
     days:[
-      {d:'VIE 3', t:'Llegada + Canggu', p:'Aterrizaje en Denpasar, traslado a Canggu y primera toma de contacto: Old Man\u2019s o La Brisa con los pies en la arena.'},
-      {d:'SÁB 4', t:'Surf + Uluwatu', p:'Surf en Batu Bolong / Echo Beach por la mañana. Tarde en los acantilados de Uluwatu y atardecer en Single Fin.'},
-      {d:'DOM 5', t:'Playas del sur + Single Fin Sunday', p:'Padang Padang, Bingin y Dreamland. Templo de Uluwatu al atardecer y la sesión mítica del domingo en Single Fin.'}
+      {d:'SÁB 3', t:'Llegada + villa en el acantilado', p:'Aterrizaje en Denpasar, traslado a Bingin (~40 min). Cena tranqui en un warung sobre el mar y primera noche de vistas al Índico.'},
+      {d:'DOM 4', t:'Playas del sur + Single Fin Sunday', p:'Padang Padang, Bingin y Dreamland: bajadas por escaleras a calas de postal. Y por la noche, la sesión mítica del domingo en Single Fin.'},
+      {d:'LUN 5', t:'Surf + templo + sunset session', p:'Surf de mañana en Uluwatu o Bingin. Templo de Uluwatu al atardecer con danza Kecak, y noche en Ulu Cliffhouse o Savaya.'}
     ],
     acts:[
-      {em:'🏄', t:'Surfear en Batu Bolong / Echo Beach'},
-      {em:'🍹', t:'Old Man\u2019s + La Brisa en Canggu'},
-      {em:'🌅', t:'Atardecer en los acantilados de Uluwatu'},
+      {em:'🏄', t:'Surf en Uluwatu / Bingin / Padang Padang'},
+      {em:'🏖', t:'Playas: Padang Padang · Bingin · Dreamland'},
+      {em:'🌅', t:'Atardecer desde los acantilados'},
+      {em:'🍸', t:'Sunset en Ulu Cliffhouse o Savaya'},
       {em:'🎉', t:'Single Fin Sunday'},
-      {em:'🏖', t:'Padang Padang · Bingin · Dreamland'},
       {em:'🛕', t:'Templo de Uluwatu + danza Kecak'}
     ]
   },
   {
-    id:'gili', name:'Gili Trawangan', kicker:'Parada 02 · Mar 6 – Jue 8 oct', em:'🐢',
-    tag:'Sin coches, sin motos: bicis, tortugas y la isla más fiestera de Indonesia. Buceo por la mañana, columpios en el mar al atardecer y bar crawl por la noche.',
-    lat:-8.3489, lng:116.0397, c1:'#00F5CC', c2:'#00A6FF',
+    id:'ubud', name:'Ubud · Interior', kicker:'Parada 02 · Mar 6 – Jue 8 oct', em:'🌾',
+    tag:'Cambio de ritmo: arrozales que caen en cascada, selva, cascadas escondidas y templos entre volcanes. El respiro perfecto antes del sprint de islas.',
+    lat:-8.5069, lng:115.2625, c1:'#22C55E', c2:'#FBBF24',
     days:[
-      {d:'MAR 6', t:'Fast boat + primera noche', p:'Barco desde Bali (~2 h). Tarde de playa, columpios en el agua y arranque del bar crawl de Gili T.'},
-      {d:'MIÉ 7', t:'Buceo con tortugas', p:'Dos inmersiones (Turtle Heaven, Shark Point). Tortugas casi garantizadas a pocos metros. Noche de fiesta.'},
-      {d:'JUE 8', t:'Gili Air + última noche', p:'Salto en barco a Gili Air para un día más chill (snorkel, freedive). Vuelta a Gili T a cerrar la etapa.'}
+      {d:'MAR 6', t:'Traslado + primera tarde en la selva', p:'Coche desde Uluwatu (~2 h). Instalación en la villa entre arrozales, primer paseo por Ubud centro y cena en un restaurante top (Locavore, Room4Dessert, Mozaic).'},
+      {d:'MIÉ 7', t:'Arrozales + cascadas', p:'Amanecer en los arrozales de Tegallalang, cascadas de Tibumana o Sekumpul, Monkey Forest, y masaje/spa balinés por la tarde para desconectar.'},
+      {d:'JUE 8', t:'Templo Tirta Empul + scooter', p:'Baño purificador en el templo Tirta Empul, ruta en scooter por Sidemen o Kintamani (vistas del volcán Batur) y última cena tranqui en Ubud.'}
     ],
     acts:[
-      {em:'🤿', t:'Bucear en Turtle Heaven / Shark Point'},
-      {em:'🐢', t:'Nadar con tortugas frente a la playa'},
-      {em:'🌅', t:'Columpios en el mar al atardecer'},
-      {em:'🎉', t:'Bar crawl de Gili T'},
-      {em:'🚲', t:'Vuelta a la isla en bici'},
-      {em:'🗿', t:'Snorkel en las estatuas de Gili Meno (Nest)'}
+      {em:'🌾', t:'Arrozales de Tegallalang o Jatiluwih'},
+      {em:'💦', t:'Cascadas: Tibumana, Sekumpul o Tegenungan'},
+      {em:'🐒', t:'Monkey Forest'},
+      {em:'🛕', t:'Templo Tirta Empul (baño purificador)'},
+      {em:'💆', t:'Masaje / spa balinés'},
+      {em:'🍽', t:'Cena en Locavore o restaurante gourmet'},
+      {em:'🛵', t:'Scooter por Sidemen o Kintamani'}
     ]
   },
   {
-    id:'lombok', name:'Kuta Lombok', kicker:'Parada 03 · Vie 9 – Dom 11 oct', em:'🏄',
+    id:'gili', name:'Gili Trawangan', kicker:'Parada 03 · Vie 9 – Dom 11 oct', em:'🐢',
+    tag:'Sin coches, sin motos: bicis, tortugas y la isla más fiestera de Indonesia. Buceo por la mañana, columpios en el mar al atardecer y bar crawl por la noche.',
+    lat:-8.3489, lng:116.0397, c1:'#00F5CC', c2:'#00A6FF',
+    days:[
+      {d:'VIE 9', t:'Fast boat + primera noche', p:'Traslado a Padang Bai (~1 h desde Ubud) y fast boat a Gili T (~1,5 h). Tarde de playa, columpios en el agua y arranque del bar crawl.'},
+      {d:'SÁB 10', t:'3-Gilis snorkel tour + fiesta', p:'Tour en barco por las 3 islas: tortugas en Turtle Point (Meno), estatuas sumergidas de The Nest y coral de Gili Air. Comida en la isla y noche fuerte en Trawangan.'},
+      {d:'DOM 11', t:'Buceo con tortugas + Gili Air', p:'Dos inmersiones (Turtle Heaven, Shark Point) o escapada a Gili Air para comer en Pink Coco / Mowie\u2019s. Última noche antes de Lombok.'}
+    ],
+    acts:[
+      {em:'🐢', t:'Nadar con tortugas frente a la playa'},
+      {em:'🤿', t:'Bucear en Turtle Heaven / Shark Point'},
+      {em:'🏝', t:'Escapada a Gili Air (Pink Coco / Mowie\u2019s)'},
+      {em:'🗿', t:'Snorkel en las estatuas de Meno (The Nest)'},
+      {em:'🌅', t:'Columpios en el mar al atardecer'},
+      {em:'🎉', t:'Bar crawl de Gili T'},
+      {em:'🚲', t:'Vuelta a la isla en bici'}
+    ]
+  },
+  {
+    id:'lombok', name:'Kuta Lombok', kicker:'Parada 04 · Lun 12 – Mié 14 oct', em:'🏄',
     tag:'El Bali de hace 15 años: bahías vírgenes, olas para todos los niveles y ritmo lento. Tres días de surf, scooter y atardeceres desde Merese Hill.',
     lat:-8.8952, lng:116.2802, c1:'#FFD60A', c2:'#FF7A18',
     days:[
-      {d:'VIE 9', t:'Barco + bajada al sur', p:'Barco corto Gili → Bangsal (15 min) y traslado a Kuta Lombok (~2 h). Tarde de check de olas y playa Kuta.'},
-      {d:'SÁB 10', t:'Surf en Selong Belanak', p:'La ola más noble para todos los niveles. Tarde en Tanjung Aan y atardecer desde Merese Hill.'},
-      {d:'DOM 11', t:'Surf en Gerupuk + scooter', p:'Barco hasta el pico de Gerupuk (nivel intermedio). Ruta en scooter por las bahías del sur y última cena tranquila.'}
+      {d:'LUN 12', t:'Barco + bajada al sur', p:'Barco corto Gili → Bangsal (15 min) y traslado a Kuta Lombok (~2 h). Tarde de check de olas y playa Kuta.'},
+      {d:'MAR 13', t:'Surf en Selong Belanak', p:'La ola más noble para todos los niveles. Tarde en Tanjung Aan y atardecer desde Merese Hill.'},
+      {d:'MIÉ 14', t:'Surf en Gerupuk + scooter', p:'Barco hasta el pico de Gerupuk (nivel intermedio). Ruta en scooter por las bahías del sur y última cena tranquila.'}
     ],
     acts:[
       {em:'🏄', t:'Surf en Selong Belanak'},
@@ -290,29 +473,11 @@ const STOPS = [
     ]
   },
   {
-    id:'komodo', name:'Komodo · Labuan Bajo', kicker:'Parada 04 · Lun 12 – Mié 14 oct', em:'🦎',
-    tag:'El gran final indonesio: dragones, la playa rosa y el mejor buceo del viaje. Octubre = mar en calma, visibilidad top y mantas.',
-    lat:-8.4964, lng:119.8877, c1:'#FF4D8D', c2:'#FF2E4C',
-    days:[
-      {d:'LUN 12', t:'Vuelo a Labuan Bajo', p:'Vuelo desde Lombok (~1 h, directo o vía Bali). Tarde en el puerto, briefing de buceo y atardecer en Paradise Bar.'},
-      {d:'MAR 13', t:'Parque Nacional de Komodo', p:'Trekking al mirador de Padar al amanecer, dragones en Rinca/Komodo, Pink Beach y snorkel con mantas en Manta Point.'},
-      {d:'MIÉ 14', t:'Día de buceo puro', p:'Dos/tres inmersiones: Batu Bolong y Castle Rock, de los mejores puntos de Indonesia. Con vuestro Advanced, a por las corrientes.'}
-    ],
-    acts:[
-      {em:'🥾', t:'Amanecer desde el mirador de Padar'},
-      {em:'🦎', t:'Ver dragones de Komodo en Rinca'},
-      {em:'🏖', t:'Pink Beach'},
-      {em:'🐋', t:'Mantas en Manta Point'},
-      {em:'🤿', t:'Bucear Batu Bolong + Castle Rock'},
-      {em:'🍻', t:'Atardecer en Paradise Bar'}
-    ]
-  },
-  {
     id:'sgp', name:'Singapur', kicker:'Parada 05 · Jue 15 – Dom 18 oct', em:'🌃',
     tag:'Del mar al neón. Base en casa del colega: rooftops sobre Marina Bay, hawkers de comida brutal, Sentosa y sábado noche a lo grande.',
     lat:1.2834, lng:103.8607, c1:'#8A5CFF', c2:'#00D4FF',
     days:[
-      {d:'JUE 15', t:'Llegada + skyline', p:'Vuelo desde Labuan Bajo. Instalarse en casa del colega y primera noche: rooftop CÉ LA VI con Marina Bay a los pies.'},
+      {d:'JUE 15', t:'Vuelo directo + skyline', p:'Vuelo directo Lombok → Singapur (AirAsia/Scoot, ~3 h). Instalarse en casa del colega y primera noche: rooftop CÉ LA VI con Marina Bay a los pies.'},
       {d:'VIE 16', t:'Marina Bay + Gardens', p:'Marina Bay Sands, Gardens by the Bay y el show de luces de los Supertrees. Cena en hawker (Lau Pa Sat / Maxwell) y Boat Quay.'},
       {d:'SÁB 17', t:'Sentosa + sábado noche', p:'Playa en Sentosa de día, Chinatown y Kampong Glam por la tarde, y la gran noche de despedida por Clarke Quay.'},
       {d:'DOM 18', t:'Vuelta a casa', p:'Último brunch, maletas y vuelo Singapur → Barcelona. Fin del Island Run 🤙'}
@@ -330,10 +495,9 @@ const STOPS = [
 
 const TRIP_START = new Date('2026-10-02T00:00:00');
 const TRIP_END   = new Date('2026-10-18T23:59:59');
-/* rango de fechas (día del mes de octubre) por parada, para "estamos aquí" */
-const RANGES = {bali:[3,5], gili:[6,8], lombok:[9,11], komodo:[12,14], sgp:[15,18]};
+const RANGES = {bali:[3,5], ubud:[6,8], gili:[9,11], lombok:[12,14], sgp:[15,18]};
 
-/* ============ RENDER STOPS ============ */
+/* ============ RENDER PARADAS ============ */
 const main = document.getElementById('stops');
 STOPS.forEach(s=>{
   const el = document.createElement('section');
@@ -364,21 +528,21 @@ STOPS.forEach(s=>{
   main.appendChild(el);
 });
 
-/* ============ PROGRESS (persistente en el navegador) ============ */
+/* ============ MISIONES (persistente) ============ */
 let done = {};
-const KEY = 'indo-sgp-done';
+const KEY_ACTS = 'indo-sgp-done';
 function loadProgress(){
   try{
-    const raw = localStorage.getItem(KEY);
+    const raw = localStorage.getItem(KEY_ACTS);
     if(raw) done = JSON.parse(raw);
-  }catch(e){ /* primera vez o modo privado */ }
+  }catch(e){}
   document.querySelectorAll('.act').forEach(a=>{
     if(done[a.dataset.key]) a.classList.add('done');
   });
   updateBars();
 }
 function saveProgress(){
-  try{ localStorage.setItem(KEY, JSON.stringify(done)); }catch(e){}
+  try{ localStorage.setItem(KEY_ACTS, JSON.stringify(done)); }catch(e){}
 }
 function updateBars(){
   STOPS.forEach(s=>{
@@ -411,7 +575,7 @@ loadProgress();
     const dom=now.getDate();
     let where='En ruta';
     for(const [id,[a,b]] of Object.entries(RANGES)){
-      if(dom>=a&&dom<=b){ where=STOPS.find(s=>s.id===id).name; 
+      if(dom>=a&&dom<=b){ where=STOPS.find(s=>s.id===id).name;
         const sec=document.getElementById(id); if(sec) sec.querySelectorAll('.day').forEach(d=>{
           if(parseInt(d.querySelector('.dnum').textContent)===dom) d.classList.add('today-hl');
         });
@@ -425,7 +589,233 @@ loadProgress();
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.12});
 document.querySelectorAll('.stop').forEach(s=>io.observe(s));
 
-/* ============ MAP ============ */
+/* ============ CHECKLIST ============ */
+const CATS = [
+  {
+    id:'docs', c:1, em:'📄', name:'Documentos y dinero',
+    items:[
+      'Pasaporte (vigencia > 6 meses)',
+      'Copia digital del pasaporte en Drive',
+      'DNI',
+      'Visa Indonesia (VOA) pre-pagada online',
+      'Tarjeta Revolut o Wise cargada',
+      '~150-200 € en efectivo para cambiar a IDR',
+      'Póliza del seguro descargada en el móvil',
+      'Reservas de vuelos y alojamientos en el móvil',
+      'Foto carné (por si acaso)'
+    ]
+  },
+  {
+    id:'tech', c:2, em:'💻', name:'Tech',
+    items:[
+      'Móvil + cargador',
+      'eSIM Indonesia + Singapur activada (Airalo/Holafly)',
+      'Adaptador tipo G (solo para Singapur)',
+      'Batería externa (mín. 10.000 mAh)',
+      'Cámara / GoPro',
+      'Baterías extra + cargador GoPro',
+      'Cables USB-C / Lightning',
+      'Auriculares',
+      'Funda impermeable para el móvil (playa y barcos)'
+    ]
+  },
+  {
+    id:'salud', c:3, em:'🩺', name:'Salud y farmacia',
+    items:[
+      'Botiquín básico de primeros auxilios',
+      'Repelente de mosquitos (DEET 40 %+)',
+      'Crema solar reef-safe (llevad de más, en Bali es cara)',
+      'Aftersun',
+      'Paracetamol / ibuprofeno',
+      'Loperamida (Fortasec) por si el estómago falla',
+      'Sales de rehidratación',
+      'Crema antifúngica (pies siempre mojados)',
+      'Tiritas + Compeed',
+      'Colirio (mucho polvo y aire acondicionado)',
+      'Vacunas al día (Hepatitis A recomendada)'
+    ]
+  },
+  {
+    id:'ropa', c:4, em:'👕', name:'Ropa',
+    items:[
+      'Camisetas (5-7)',
+      'Tirantes / sin mangas (2-3)',
+      'Shorts (3-4)',
+      'Bañadores (2)',
+      'Chanclas',
+      'Zapatillas ligeras',
+      'Sudadera fina (AC de aviones y noches de Ubud)',
+      'Camisa para salir de noche',
+      'Pantalón largo ligero (templos y aviones)',
+      'Gorra o sombrero',
+      'Calcetines (pocos, pero llevad)',
+      'Ropa interior'
+    ]
+  },
+  {
+    id:'agua', c:5, em:'🏄', name:'Deportes acuáticos',
+    items:[
+      'Carné de buceo (Open Water / Advanced)',
+      'Logbook de buceo',
+      'Gafas de bucear propias (si tenéis)',
+      'Snorkel propio',
+      'Rash guard / licra UV para surf y snorkel',
+      'Boardshorts',
+      'Escarpines finos (rocas de Uluwatu y Gerupuk)',
+      'Toalla de microfibra'
+    ]
+  },
+  {
+    id:'aseo', c:6, em:'🧴', name:'Aseo',
+    items:[
+      'Neceser',
+      'Cepillo + pasta de dientes',
+      'Champú / gel (bote pequeño)',
+      'Desodorante',
+      'Maquinilla + cuchillas',
+      'Peine',
+      'Bálsamo labial con SPF',
+      'Cortaúñas',
+      'Toalla de ducha (comprobad si el alojamiento las da)'
+    ]
+  },
+  {
+    id:'extra', c:7, em:'🎒', name:'Extras',
+    items:[
+      'Mochila pequeña de día',
+      'Riñonera / bandolera',
+      'Gafas de sol (llevad 2 pares)',
+      'Libro / Kindle',
+      'Candado pequeño',
+      'Bolsa para ropa sucia',
+      'Botella reutilizable',
+      'Snacks para los vuelos largos',
+      'Tapones para los oídos + antifaz'
+    ]
+  }
+];
+
+const KEY_CHK = 'indo-sgp-checklist';
+let chk = {done:{}, custom:{}};
+try{
+  const raw = localStorage.getItem(KEY_CHK);
+  if(raw) chk = JSON.parse(raw);
+  if(!chk.done) chk.done = {};
+  if(!chk.custom) chk.custom = {};
+}catch(e){ chk = {done:{}, custom:{}}; }
+function saveChk(){ try{ localStorage.setItem(KEY_CHK, JSON.stringify(chk)); }catch(e){} }
+
+const chkGrid = document.getElementById('chkGrid');
+let currentFilter = 'all';
+
+function esc(str){
+  return String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
+
+function renderChk(){
+  chkGrid.innerHTML = '';
+  let totalDone = 0, totalItems = 0;
+
+  CATS.forEach(cat => {
+    const customs = chk.custom[cat.id] || [];
+    const allItems = cat.items.map((name,i)=>({id:`def-${i}`, name, custom:false}))
+      .concat(customs.map(c=>({id:c.id, name:c.name, custom:true})));
+
+    const nDone = allItems.filter(it => chk.done[`${cat.id}::${it.id}`]).length;
+    const total = allItems.length;
+    totalDone += nDone; totalItems += total;
+
+    const el = document.createElement('div');
+    el.className = 'cat'; el.dataset.c = cat.c;
+    el.innerHTML = `
+      <div class="cat-head">
+        <div class="cat-title">
+          <h3><span class="em">${cat.em}</span> ${cat.name}</h3>
+          <div class="cat-count"><b>${nDone}</b>/${total}</div>
+        </div>
+        <div class="cat-bar"><i style="width:${total?nDone/total*100:0}%"></i></div>
+      </div>
+      <div class="items">
+        ${allItems.map(it => {
+          const k = `${cat.id}::${it.id}`;
+          const isDone = !!chk.done[k];
+          const visible = currentFilter==='all' || (currentFilter==='done' && isDone) || (currentFilter==='todo' && !isDone);
+          return `
+            <div class="item ${isDone?'done':''} ${visible?'':'hidden'}" data-k="${k}">
+              <span class="box">✓</span>
+              <span class="txt">${esc(it.name)}</span>
+              ${it.custom?`<button class="del" data-cid="${cat.id}" data-id="${it.id}" title="Eliminar">×</button>`:''}
+            </div>`;
+        }).join('')}
+      </div>
+      <form class="add" data-cid="${cat.id}">
+        <input type="text" placeholder="Añadir algo…" maxlength="80" required>
+        <button type="submit" title="Añadir">+</button>
+      </form>`;
+    chkGrid.appendChild(el);
+  });
+
+  document.getElementById('doneCount').textContent = totalDone;
+  document.getElementById('totalCount').textContent = totalItems;
+  document.getElementById('totalBar').style.width = (totalItems? totalDone/totalItems*100 : 0) + '%';
+
+  const pending = totalItems - totalDone;
+  document.getElementById('filterCount').textContent = currentFilter==='todo'
+    ? `${pending} pendiente${pending!==1?'s':''}`
+    : currentFilter==='done' ? `${totalDone} hecho${totalDone!==1?'s':''}`
+    : `${totalItems} en total`;
+}
+renderChk();
+
+chkGrid.addEventListener('click', e => {
+  const del = e.target.closest('.del');
+  if(del){
+    e.stopPropagation();
+    const cid = del.dataset.cid, id = del.dataset.id;
+    chk.custom[cid] = (chk.custom[cid]||[]).filter(c => c.id !== id);
+    delete chk.done[`${cid}::${id}`];
+    saveChk(); renderChk();
+    return;
+  }
+  const item = e.target.closest('.item');
+  if(item){
+    const k = item.dataset.k;
+    if(chk.done[k]) delete chk.done[k]; else chk.done[k] = true;
+    saveChk(); renderChk();
+  }
+});
+
+chkGrid.addEventListener('submit', e => {
+  e.preventDefault();
+  const form = e.target.closest('.add');
+  if(!form) return;
+  const input = form.querySelector('input');
+  const text = input.value.trim();
+  if(!text) return;
+  const cid = form.dataset.cid;
+  if(!chk.custom[cid]) chk.custom[cid] = [];
+  chk.custom[cid].push({id:`c-${Date.now()}-${Math.random().toString(36).slice(2,7)}`, name:text});
+  input.value='';
+  saveChk(); renderChk();
+});
+
+document.querySelectorAll('.filter').forEach(b => {
+  b.addEventListener('click', () => {
+    document.querySelectorAll('.filter').forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    currentFilter = b.dataset.f;
+    renderChk();
+  });
+});
+
+document.getElementById('resetBtn').addEventListener('click', () => {
+  if(confirm('¿Seguro que quieres borrar tu checklist entera (marcas y items añadidos)?')){
+    chk = {done:{}, custom:{}};
+    saveChk(); renderChk();
+  }
+});
+
+/* ============ MAPA ============ */
 const map=L.map('map',{scrollWheelZoom:false, zoomControl:true});
 L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png',{
   subdomains:'abcd',
@@ -444,21 +834,19 @@ STOPS.forEach(s=>{
     .bindPopup(`<div class="pop"><b>${s.em} ${s.name}</b><br>${s.kicker}<br><a href="#${s.id}">Ver plan →</a></div>`);
 });
 
-/* segmentos: barco = sólido · vuelo = discontinuo */
 const segs=[
-  {a:[-8.66,115.13], b:[-8.3489,116.0397], type:'boat',  c:'#00F5CC'},
+  {a:[-8.83,115.09],     b:[-8.5069,115.2625], type:'car',  c:'#FBBF24'},
+  {a:[-8.5069,115.2625], b:[-8.3489,116.0397], type:'boat', c:'#00F5CC'},
   {a:[-8.3489,116.0397], b:[-8.8952,116.2802], type:'boat', c:'#FFD60A'},
-  {a:[-8.8952,116.2802], b:[-8.4964,119.8877], type:'fly', c:'#FF4D8D'},
-  {a:[-8.4964,119.8877], b:[1.2834,103.8607], type:'fly', c:'#8A5CFF'}
+  {a:[-8.8952,116.2802], b:[1.2834,103.8607],  type:'fly',  c:'#8A5CFF'}
 ];
 segs.forEach(s=>{
   L.polyline([s.a,s.b],{
     color:s.c, weight:3.5, opacity:.9,
-    dashArray:s.type==='fly'?'8 10':null
+    dashArray: s.type==='fly' ? '8 10' : s.type==='car' ? '2 8' : null
   }).addTo(map);
 });
 
-/* Fix típico de Leaflet: recalcula tamaño y encuadre cuando el contenedor ya está pintado */
 function fitMap(){
   map.invalidateSize();
   map.fitBounds(L.latLngBounds(pts).pad(0.2));
