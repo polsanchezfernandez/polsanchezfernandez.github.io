@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="ca">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -277,6 +277,7 @@
   }
   .accordion.open .accordion-body{padding:0 16px 18px;}
   .recipe-block{padding-top:6px; border-top:1px solid var(--line); margin-top:2px;}
+  .recipe-block:first-child{border-top:none; margin-top:0;}
   .recipe-block h4{
     font-family:'Fraunces',serif;
     font-weight:500;
@@ -323,6 +324,15 @@
   }
   .alt-item b{display:block; font-size:13px; margin-bottom:2px; color:var(--ink);}
 
+  /* today recipes (static cards, no accordion constraint) */
+  .today-recipe-card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:16px 16px 4px;
+    margin-bottom:12px;
+  }
+
   /* ---------- Shopping list ---------- */
   .shop-progress{
     display:flex; align-items:center; gap:10px;
@@ -365,11 +375,6 @@
     padding:12px; font-family:'Karla',sans-serif; font-weight:700; font-size:13px;
     color:var(--ink-soft); cursor:pointer;
   }
-
-  footer.note{
-    text-align:center; font-size:11.5px; color:var(--ink-soft);
-    padding:6px 30px 26px; line-height:1.6;
-  }
 </style>
 </head>
 <body>
@@ -391,54 +396,57 @@
     </div>
   </header>
 
-  <!-- ===================== HOY ===================== -->
+  <!-- ===================== AVUI ===================== -->
   <section class="screen active" id="screen-hoy">
     <div id="hoyContent"></div>
 
-    <p class="section-label">PRÓXIMOS DÍAS</p>
+    <p class="section-label">RECEPTES D'AVUI</p>
+    <div id="todayRecipes"></div>
+
+    <p class="section-label">PRÒXIMS DIES</p>
     <div class="upcoming-scroll" id="upcomingScroll"></div>
   </section>
 
-  <!-- ===================== SEMANA ===================== -->
+  <!-- ===================== SETMANA ===================== -->
   <section class="screen" id="screen-semana">
-    <h2 class="title">La semana</h2>
-    <p class="sub">Todo el menú, día a día.</p>
+    <h2 class="title">La setmana</h2>
+    <p class="sub">Tot el menú, dia a dia.</p>
     <div class="day-tabs" id="weekTabs"></div>
     <div id="weekCards"></div>
   </section>
 
-  <!-- ===================== RECETAS ===================== -->
+  <!-- ===================== RECEPTES ===================== -->
   <section class="screen" id="screen-recetas">
-    <h2 class="title">Recetas</h2>
-    <p class="sub">Cómo preparar cada plato, con alternativas.</p>
+    <h2 class="title">Receptes</h2>
+    <p class="sub">Com preparar cada plat, amb alternatives.</p>
     <div class="day-tabs" id="recipeTabs"></div>
     <div id="recipeAccordions"></div>
   </section>
 
   <!-- ===================== COMPRA ===================== -->
   <section class="screen" id="screen-compra">
-    <h2 class="title">Lista de la compra</h2>
-    <p class="sub">Todo lo que hace falta para la semana.</p>
+    <h2 class="title">Llista de la compra</h2>
+    <p class="sub">Tot el que cal per a la setmana.</p>
     <div class="shop-progress">
       <div class="bar-bg"><div class="bar-fill" id="shopBarFill"></div></div>
       <div class="bar-count" id="shopCount">0/0</div>
     </div>
     <div id="shopList"></div>
-    <button class="shop-reset" id="shopReset">Desmarcar todo</button>
+    <button class="shop-reset" id="shopReset">Desmarcar-ho tot</button>
   </section>
 
   <nav class="tabbar">
     <button data-tab="hoy" class="active">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.4M12 19.6V22M4.2 4.2l1.7 1.7M18.1 18.1l1.7 1.7M2 12h2.4M19.6 12H22M4.2 19.8l1.7-1.7M18.1 5.9l1.7-1.7"/></svg>
-      Hoy
+      Avui
     </button>
     <button data-tab="semana">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="4.5" width="17" height="16" rx="3"/><path d="M3.5 9.5h17M8 2.5v4M16 2.5v4"/></svg>
-      Semana
+      Setmana
     </button>
     <button data-tab="recetas">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3.5h11.5a2 2 0 0 1 2 2V21H7a2 2 0 0 1-2-2V3.5Z"/><path d="M5 17.5h13.5M9 8h6M9 11.5h6"/></svg>
-      Recetas
+      Receptes
     </button>
     <button data-tab="compra">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16l-1.4 11.2a2 2 0 0 1-2 1.8H7.4a2 2 0 0 1-2-1.8L4 7Z"/><path d="M8 7V5.5a4 4 0 0 1 8 0V7"/></svg>
@@ -450,7 +458,7 @@
 
 <script>
 /* =========================================================
-   DATOS DEL MENÚ
+   DADES DEL MENÚ
    ========================================================= */
 const ICONS = {
   desayuno: '<path d="M4 9h13a4 4 0 0 1 0 8H4V9Z"/><path d="M17 11h1a3 3 0 0 1 0 6h-1"/><path d="M6 5.5c0 1-1 1-1 2M9.5 5.5c0 1-1 1-1 2M13 5.5c0 1-1 1-1 2"/>',
@@ -458,161 +466,170 @@ const ICONS = {
   comida: '<path d="M6 3v7a3 3 0 0 0 3 3v8M9 3v7M12 3v7M18 3c-2 1-3 3-3 6s1 4 3 4v8"/>',
   merienda: '<circle cx="12" cy="12" r="8"/><path d="M12 8v4l2.5 2.5"/>',
   cena: '<path d="M4 12a8 8 0 1 0 16.6-5.3A6 6 0 0 1 12 14 6 6 0 0 1 4 12Z"/>',
-  deporte: '<circle cx="12" cy="12" r="8"/><path d="M12 4.5 12 8M12 16v3.5M4.5 12H8M16 12h3.5M6.8 6.8 9 9M15 15l2.2 2.2M6.8 17.2 9 15M15 9l2.2-2.2"/>'
+  deporte: '<path d="M3 17.3c1.3-1.7 2.6-1.7 3.9 0s2.6 1.7 3.9 0"/><circle cx="17" cy="8.3" r="3.2"/><path d="M17 5.1v6.4M13.8 8.3h6.4M14.7 6l4.6 4.6M14.7 10.6l4.6-4.6"/><path d="M6.5 9.2l2.2 2 2.8-1.1"/>'
 };
 
 const week = [
- { key:'lunes', label:'Lunes', short:'LUN',
-   desayuno:"Café + tostas amb pavo i queso",
-   snack:"Griego natural + frutos secos",
-   comida:"180 g de pollo + 70 g de arroz + ensalada + fruta",
-   merienda:"Fruta + 3 lonchas de jamón dulce",
-   cena:"180 g de merluza + gazpacho + Griego",
-   deporte:"Piwi a la pía · 20:30h" },
- { key:'martes', label:'Martes', short:'MAR',
-   desayuno:"Café + Griego natural + muesli + fruta",
-   snack:"Fruta + 3 lonchas de jamón dulce",
-   comida:"150 g de salmón + 150 g de quinoa + ensalada + fruta",
-   merienda:"Griego natural + frutos secos",
-   cena:"180 g de pavo + ensalada de aguacate + Griego",
-   deporte:"Running suave" },
- { key:'miercoles', label:'Miércoles', short:'MIÉ',
-   desayuno:"Café + tostas amb atún",
-   snack:"Griego natural + frutos secos",
-   comida:"150 g de burger + 250 g de patata + verduras + fruta",
-   merienda:"Fruta + 3 lonchas de jamón dulce",
-   cena:"2 huevos con queso + gazpacho o crema + Griego",
+ { key:'lunes', label:'Dilluns', short:'DL',
+   desayuno:"Cafè + torrades amb pavo i formatge",
+   snack:"Iogurt grec + fruits secs",
+   comida:"180 g de pollastre + 70 g d'arròs + amanida + fruita",
+   merienda:"Fruita + 3 llesques de pernil dolç",
+   cena:"180 g de lluç + gaspatxo + Grec",
+   deporte:"Piwi a la pia · 20:30h" },
+ { key:'martes', label:'Dimarts', short:'DM',
+   desayuno:"Cafè + Iogurt grec + muesli + fruita",
+   snack:"Fruita + 3 llesques de pernil dolç",
+   comida:"150 g de salmó + 150 g de quinoa + amanida + fruita",
+   merienda:"Iogurt grec + fruits secs",
+   cena:"180 g de gall dindi + amanida d'alvocat + Grec",
+   deporte:"Running suau" },
+ { key:'miercoles', label:'Dimecres', short:'DC',
+   desayuno:"Cafè + torrades amb tonyina",
+   snack:"Iogurt grec + fruits secs",
+   comida:"150 g de burguer + 250 g de patata + verdures + fruita",
+   merienda:"Fruita + 3 llesques de pernil dolç",
+   cena:"2 ous amb formatge + gaspatxo o crema + Grec",
    deporte:"Piwi + bici al Barci" },
- { key:'jueves', label:'Jueves', short:'JUE',
-   desayuno:"Café + Griego natural + muesli + fruta",
-   snack:"Fruta + 3 lonchas de jamón dulce",
-   comida:"180 g de merluza + 150 g de arroz + verduras + fruta",
-   merienda:"Griego natural + frutos secos",
-   cena:"180 g de pollo + verduras + Griego",
+ { key:'jueves', label:'Dijous', short:'DJ',
+   desayuno:"Cafè + Iogurt grec + muesli + fruita",
+   snack:"Fruita + 3 llesques de pernil dolç",
+   comida:"180 g de lluç + 150 g d'arròs + verdures + fruita",
+   merienda:"Iogurt grec + fruits secs",
+   cena:"180 g de pollastre + verdures + Grec",
    deporte:"Crosstrain al Barci · 20:00h" },
- { key:'viernes', label:'Viernes', short:'VIE',
-   desayuno:"Café + 2 huevos + jamón dulce o salmón + fruta",
-   snack:"Griego natural + frutos secos",
-   comida:"150 g de cerdo + 75 g de pasta + verduras + fruta",
-   merienda:"Fruta + 3 lonchas de jamón dulce",
-   cena:"Ensalada de aguacate y atún + Griego",
-   deporte:"Running suave" },
- { key:'sabado', label:'Sábado', short:'SÁB',
-   desayuno:"Café + tostas amb jamón dulce",
-   snack:"Fruta + 3 lonchas de jamón dulce",
-   comida:"Ensalada de lentejas, verduras y salmón + fruta",
-   merienda:"Griego natural + frutos secos",
-   cena:"2 huevos con queso + gazpacho o crema + Griego",
+ { key:'viernes', label:'Divendres', short:'DV',
+   desayuno:"Cafè + 2 ous + pernil dolç o salmó + fruita",
+   snack:"Iogurt grec + fruits secs",
+   comida:"150 g de porc + 75 g de pasta + verdures + fruita",
+   merienda:"Fruita + 3 llesques de pernil dolç",
+   cena:"Amanida d'alvocat i tonyina + Grec",
+   deporte:"Running suau" },
+ { key:'sabado', label:'Dissabte', short:'DS',
+   desayuno:"Cafè + torrades amb pernil dolç",
+   snack:"Fruita + 3 llesques de pernil dolç",
+   comida:"Amanida de llenties, verdures i salmó + fruita",
+   merienda:"Iogurt grec + fruits secs",
+   cena:"2 ous amb formatge + gaspatxo o crema + Grec",
    deporte:"Ruta en bici · a primera hora" },
 ];
 
-// JS getDay(): 0=domingo,1=lunes...6=sábado  → índice en week[] (domingo se trata aparte)
+const MEAL_LABELS = {
+  desayuno:"DESAYUNIX",
+  snack:"SNACK MATUTINO",
+  comida:"DINAREITOR",
+  merienda:"MERENDOLA",
+  cena:"CENUQUI",
+  deporte:"SPORT OF THE DAY"
+};
+
+// JS getDay(): 0=diumenge,1=dilluns...6=dissabte → índex a week[]
 const dayIndexFromJS = [null,0,1,2,3,4,5];
 
 /* =========================================================
-   RECETAS
+   RECEPTES
    ========================================================= */
 const recipes = {
  lunes: {
-  comida:{title:"Pollo al horno con arroz y ensalada", tags:["Pollo 180g","Arroz 70g","Ensalada","Fruta"],
-   steps:["Sazona el pechuga de pollo con sal, pimienta, ajo en polvo y un chorrito de aceite de oliva.",
-          "Ásala en el horno a 200°C durante 18-20 minutos, hasta que esté dorada por fuera y jugosa por dentro.",
-          "Cuece el arroz en agua con sal unos 12 minutos y escurre.",
-          "Monta el plato con el pollo, el arroz y una ensalada verde con tomate; termina con fruta."]},
-  cena:{title:"Merluza con gazpacho", tags:["Merluza 180g","Gazpacho","Griego"],
-   steps:["Salpimienta el lomo de merluza y cocínalo a la plancha 2-3 minutos por lado con un poco de aceite.",
-          "Sirve con un vaso de gazpacho frío como entrante.",
-          "Termina con un yogur griego natural."]}
+  comida:{title:"Pollastre al forn amb arròs i amanida", tags:["Pollastre 180g","Arròs 70g","Amanida","Fruita"],
+   steps:["Assaona la pitrera de pollastre amb sal, pebre, all en pols i un raig d'oli d'oliva.",
+          "Enforna-la a 200°C durant 18-20 minuts, fins que quedi daurada per fora i sucosa per dins.",
+          "Cou l'arròs en aigua amb sal uns 12 minuts i escorre'l.",
+          "Munta el plat amb el pollastre, l'arròs i una amanida verda amb tomàquet; acaba amb fruita."]},
+  cena:{title:"Lluç amb gaspatxo", tags:["Lluç 180g","Gaspatxo","Grec"],
+   steps:["Salpebra el llom de lluç i cuina'l a la planxa 2-3 minuts per cada costat amb una mica d'oli.",
+          "Serveix amb un got de gaspatxo fred com a entrant.",
+          "Acaba amb un iogurt grec natural."]}
  },
  martes: {
-  comida:{title:"Salmón con quinoa y ensalada", tags:["Salmón 150g","Quinoa 150g","Ensalada","Fruta"],
-   steps:["Lava la quinoa y cuécela en agua con sal (proporción 1:2) durante 12-15 minutos; deja reposar tapada 5 min.",
-          "Cocina el salmón a la plancha con piel, 3-4 minutos por lado, con sal y un toque de limón.",
-          "Sirve el salmón sobre la quinoa junto con una ensalada fresca y remata con fruta."]},
-  cena:{title:"Pavo con ensalada de aguacate", tags:["Pavo 180g","Aguacate","Griego"],
-   steps:["Cocina la pechuga de pavo a la plancha en filetes finos, vuelta y vuelta, con sal y pimienta.",
-          "Prepara la ensalada: aguacate en dados, tomate, lechuga y un chorrito de aceite y limón.",
-          "Sirve el pavo sobre la ensalada y acompaña con Griego natural."]}
+  comida:{title:"Salmó amb quinoa i amanida", tags:["Salmó 150g","Quinoa 150g","Amanida","Fruita"],
+   steps:["Renta la quinoa i cou-la en aigua amb sal (proporció 1:2) durant 12-15 minuts; deixa-la reposar tapada 5 min.",
+          "Cuina el salmó a la planxa amb pell, 3-4 minuts per cada costat, amb sal i un toc de llimona.",
+          "Serveix el salmó sobre la quinoa amb una amanida fresca i acaba amb fruita."]},
+  cena:{title:"Gall dindi amb amanida d'alvocat", tags:["Gall dindi 180g","Alvocat","Grec"],
+   steps:["Cuina la pitrera de gall dindi a la planxa en filets fins, tomba i tomba, amb sal i pebre.",
+          "Prepara l'amanida: alvocat a daus, tomàquet, enciam i un raig d'oli i llimona.",
+          "Serveix el gall dindi sobre l'amanida i acompanya amb Grec natural."]}
  },
  miercoles: {
-  comida:{title:"Burger casera con patata y verduras", tags:["Burger 150g","Patata 250g","Verduras","Fruta"],
-   steps:["Forma la hamburguesa (carne picada magra 150g) con sal, pimienta y un poco de ajo picado.",
-          "Cocínala a la plancha 3-4 minutos por lado según el punto deseado.",
-          "Corta la patata en gajos, hornea a 200°C 25-30 min con un poco de aceite y sal.",
-          "Sirve con verduras salteadas (pimiento, calabacín, cebolla) y fruta de postre."]},
-  cena:{title:"Huevos con gazpacho o crema", tags:["Huevos x2","Queso","Gazpacho / crema","Griego"],
-   steps:["Cuece o cocina los huevos a la plancha con un poco de queso fundido por encima.",
-          "Acompaña con un vaso de gazpacho frío, o si lo prefieres, una crema de verduras templada.",
-          "Termina con Griego natural."]}
+  comida:{title:"Burguer casolana amb patata i verdures", tags:["Burguer 150g","Patata 250g","Verdures","Fruita"],
+   steps:["Forma l'hamburguesa (carn picada magra 150g) amb sal, pebre i una mica d'all picat.",
+          "Cuina-la a la planxa 3-4 minuts per cada costat segons el punt desitjat.",
+          "Talla la patata en tires, enforna a 200°C 25-30 min amb una mica d'oli i sal.",
+          "Serveix amb verdures saltejades (pebrot, carbassó, ceba) i fruita de postres."]},
+  cena:{title:"Ous amb gaspatxo o crema", tags:["Ous x2","Formatge","Gaspatxo / crema","Grec"],
+   steps:["Cou o cuina els ous a la planxa amb una mica de formatge fos per sobre.",
+          "Acompanya amb un got de gaspatxo fred, o si ho prefereixes, una crema de verdures tèbia.",
+          "Acaba amb Grec natural."]}
  },
  jueves: {
-  comida:{title:"Merluza con arroz y verduras", tags:["Merluza 180g","Arroz 150g","Verduras","Fruta"],
-   steps:["Cuece el arroz en agua con sal, unos 12 minutos, y escurre.",
-          "Cocina la merluza al horno o a la plancha con sal, ajo y perejil, 6-8 minutos.",
-          "Saltea las verduras (brócoli, zanahoria, calabacín) con un poco de aceite y ajo.",
-          "Monta el plato y termina con fruta."]},
-  cena:{title:"Pollo con verduras", tags:["Pollo 180g","Verduras","Griego"],
-   steps:["Corta el pollo en tiras y saltéalo en la sartén con un poco de aceite, sal y especias al gusto.",
-          "Añade verduras variadas (pimiento, cebolla, calabacín) y saltea 6-8 minutos más.",
-          "Sirve caliente y acompaña con Griego natural."]}
+  comida:{title:"Lluç amb arròs i verdures", tags:["Lluç 180g","Arròs 150g","Verdures","Fruita"],
+   steps:["Cou l'arròs en aigua amb sal, uns 12 minuts, i escorre'l.",
+          "Cuina el lluç al forn o a la planxa amb sal, all i julivert, 6-8 minuts.",
+          "Salteja les verdures (bròquil, pastanaga, carbassó) amb una mica d'oli i all.",
+          "Munta el plat i acaba amb fruita."]},
+  cena:{title:"Pollastre amb verdures", tags:["Pollastre 180g","Verdures","Grec"],
+   steps:["Talla el pollastre a tires i salteja'l a la paella amb una mica d'oli, sal i espècies al gust.",
+          "Afegeix verdures variades (pebrot, ceba, carbassó) i salteja 6-8 minuts més.",
+          "Serveix calent i acompanya amb Grec natural."]}
  },
  viernes: {
-  comida:{title:"Cerdo con pasta y verduras", tags:["Cerdo 150g","Pasta 75g","Verduras","Fruta"],
-   steps:["Cuece la pasta en agua con sal según el tiempo del paquete y escurre.",
-          "Cocina el solomillo o filete de cerdo a la plancha con sal, pimienta y un toque de pimentón.",
-          "Saltea unas verduras de temporada y mezcla todo o sirve por separado.",
-          "Acompaña con fruta de postre."]},
-  cena:{title:"Ensalada de aguacate y atún", tags:["Atún","Aguacate","Griego"],
-   steps:["Escurre bien el atún (al natural) y mézclalo con aguacate en dados.",
-          "Añade tomate, lechuga o canónigos, y un chorrito de aceite de oliva y limón.",
-          "Sirve fresco y acompaña con Griego natural."]}
+  comida:{title:"Porc amb pasta i verdures", tags:["Porc 150g","Pasta 75g","Verdures","Fruita"],
+   steps:["Cou la pasta en aigua amb sal segons el temps del paquet i escorre-la.",
+          "Cuina el filet de porc a la planxa amb sal, pebre i un toc de pimentó.",
+          "Salteja unes verdures de temporada i barreja-ho tot o serveix per separat.",
+          "Acompanya amb fruita de postres."]},
+  cena:{title:"Amanida d'alvocat i tonyina", tags:["Tonyina","Alvocat","Grec"],
+   steps:["Escorre bé la tonyina (al natural) i barreja-la amb alvocat a daus.",
+          "Afegeix tomàquet, enciam o canonges, i un raig d'oli d'oliva i llimona.",
+          "Serveix fresc i acompanya amb Grec natural."]}
  },
  sabado: {
-  comida:{title:"Ensalada de lentejas, verduras y salmón", tags:["Lentejas","Verduras","Salmón","Fruta"],
-   steps:["Si usas lentejas cocidas de bote, escúrrelas y lávalas bajo el grifo.",
-          "Cocina un trozo de salmón a la plancha, 3-4 minutos por lado.",
-          "Mezcla las lentejas con verduras frescas troceadas (tomate, pepino, pimiento) y un aliño de aceite, vinagre y sal.",
-          "Corona la ensalada con el salmón desmigado y añade fruta de postre."]},
-  cena:{title:"Huevos con gazpacho o crema", tags:["Huevos x2","Queso","Gazpacho / crema","Griego"],
-   steps:["Cocina los huevos al gusto (a la plancha o revueltos) con un poco de queso.",
-          "Acompaña con gazpacho frío o una crema de verduras templada.",
-          "Termina con Griego natural."]}
+  comida:{title:"Amanida de llenties, verdures i salmó", tags:["Llenties","Verdures","Salmó","Fruita"],
+   steps:["Si fas servir llenties cuites de pot, escorre-les i renta-les sota l'aixeta.",
+          "Cuina un tros de salmó a la planxa, 3-4 minuts per cada costat.",
+          "Barreja les llenties amb verdures fresques tallades (tomàquet, cogombre, pebrot) i un amaniment d'oli, vinagre i sal.",
+          "Corona l'amanida amb el salmó esmicolat i afegeix fruita de postres."]},
+  cena:{title:"Ous amb gaspatxo o crema", tags:["Ous x2","Formatge","Gaspatxo / crema","Grec"],
+   steps:["Cuina els ous al gust (a la planxa o remenats) amb una mica de formatge.",
+          "Acompanya amb gaspatxo fred o una crema de verdures tèbia.",
+          "Acaba amb Grec natural."]}
  }
 };
 
-// Opciones alternativas de preparación por ingrediente principal, para dar variedad
+// Opcions alternatives de preparació per ingredient principal, per donar varietat
 const altOptions = {
  pollo: [
-  {name:"Pollo al horno con limón y romero", desc:"Marina el pollo con zumo de limón, romero, ajo y aceite 15 min. Hornea a 200°C 20 min."},
-  {name:"Pollo salteado con soja y jengibre", desc:"Tiras de pollo salteadas a fuego fuerte con salsa de soja, jengibre rallado y un toque de miel."}
+  {name:"Pollastre al forn amb llimona i romaní", desc:"Marina el pollastre amb suc de llimona, romaní, all i oli 15 min. Enforna a 200°C 20 min."},
+  {name:"Pollastre saltejat amb soja i gingebre", desc:"Tires de pollastre saltejades a foc fort amb salsa de soja, gingebre ratllat i un toc de mel."}
  ],
  salmon: [
-  {name:"Salmón al papillote", desc:"Envuelve el salmón con limón, eneldo y verduras en papel de horno; hornea 15 min a 190°C."},
-  {name:"Salmón marinado en soja y sésamo", desc:"Marina 10 min en soja, sésamo y un toque de miel, luego a la plancha 3 min por lado."}
+  {name:"Salmó al papillot", desc:"Embolica el salmó amb llimona, anet i verdures en paper de forn; enforna 15 min a 190°C."},
+  {name:"Salmó marinat amb soja i sèsam", desc:"Marina 10 min amb soja, sèsam i un toc de mel, després a la planxa 3 min per cada costat."}
  ],
  merluza: [
-  {name:"Merluza en salsa verde", desc:"Rehoga ajo y perejil en aceite, añade un poco de caldo y cuece la merluza tapada 8 min."},
-  {name:"Merluza al horno con tomate", desc:"Sobre una base de tomate troceado y cebolla, hornea la merluza 15 min a 190°C."}
+  {name:"Lluç en salsa verda", desc:"Sofregeix all i julivert en oli, afegeix una mica de brou i cou el lluç tapat 8 min."},
+  {name:"Lluç al forn amb tomàquet", desc:"Sobre una base de tomàquet tallat i ceba, enforna el lluç 15 min a 190°C."}
  ],
  pavo: [
-  {name:"Pavo a la plancha con especias", desc:"Filetes finos con pimentón, comino y un toque de limón, vuelta y vuelta en la sartén."},
-  {name:"Brochetas de pavo al horno", desc:"Pavo en dados con pimiento y cebolla, brocheta al horno 15 min a 200°C."}
+  {name:"Gall dindi a la planxa amb espècies", desc:"Filets fins amb pimentó, comí i un toc de llimona, tomba i tomba a la paella."},
+  {name:"Broquetes de gall dindi al forn", desc:"Gall dindi a daus amb pebrot i ceba, broqueta al forn 15 min a 200°C."}
  ],
  cerdo: [
-  {name:"Solomillo de cerdo al horno", desc:"Sella el solomillo en la sartén y termina en el horno 12-15 min a 190°C con mostaza y hierbas."},
-  {name:"Cerdo salteado estilo salteado asiático", desc:"Tiras de cerdo salteadas con salsa de soja, ajo y verduras crujientes."}
+  {name:"Filet de porc al forn", desc:"Sella el filet a la paella i acaba'l al forn 12-15 min a 190°C amb mostassa i herbes."},
+  {name:"Porc saltejat a l'asiàtica", desc:"Tires de porc saltejades amb salsa de soja, all i verdures cruixents."}
  ],
  huevos: [
-  {name:"Tortilla francesa de queso", desc:"Bate los huevos, añade queso rallado y cuaja en la sartén a fuego medio."},
-  {name:"Huevos escalfados", desc:"Cuece los huevos en agua casi hirviendo con un chorro de vinagre, 3 minutos."}
+  {name:"Truita francesa de formatge", desc:"Bat els ous, afegeix formatge ratllat i qualla a la paella a foc mitjà."},
+  {name:"Ous escalfats", desc:"Cou els ous en aigua gairebé bullint amb un raig de vinagre, 3 minuts."}
  ],
  burger: [
-  {name:"Burger al horno", desc:"Hornea la hamburguesa a 200°C 12-15 min, más ligera que a la plancha."},
-  {name:"Burger con especias marroquíes", desc:"Añade comino, cilantro y pimentón a la carne antes de formar la hamburguesa."}
+  {name:"Burguer al forn", desc:"Enforna l'hamburguesa a 200°C 12-15 min, més lleugera que a la planxa."},
+  {name:"Burguer amb espècies marroquines", desc:"Afegeix comí, coriandre i pimentó a la carn abans de formar l'hamburguesa."}
  ],
  legumbres: [
-  {name:"Ensalada de lentejas templada", desc:"Saltea las lentejas cocidas con ajo y pimentón un par de minutos antes de añadir las verduras."},
-  {name:"Bowl de lentejas con hummus", desc:"Cambia el aliño por una cucharada de hummus casero diluido con un poco de agua y limón."}
+  {name:"Amanida de llenties tèbia", desc:"Salteja les llenties cuites amb all i pimentó un parell de minuts abans d'afegir les verdures."},
+  {name:"Bol de llenties amb hummus", desc:"Canvia l'amaniment per una cullerada d'hummus casolà diluït amb una mica d'aigua i llimona."}
  ]
 };
 const proteinByDay = {
@@ -625,42 +642,42 @@ const proteinByDay = {
 };
 
 /* =========================================================
-   LISTA DE LA COMPRA
+   LLISTA DE LA COMPRA
    ========================================================= */
 const shoppingList = [
- { cat:"Proteínas", items:[
-    "Pechuga de pollo (aprox. 550 g)","Merluza (aprox. 550 g)","Salmón fresco (aprox. 150 g)",
-    "Pavo filetes (aprox. 180 g)","Carne picada para burger (150 g)","Solomillo de cerdo (150 g)",
-    "Atún al natural","Huevos (1 docena)","Jamón dulce (paquete)"
+ { cat:"Proteïnes", items:[
+    "Pit de pollastre (aprox. 550 g)","Lluç (aprox. 550 g)","Salmó fresc (aprox. 150 g)",
+    "Gall dindi en filets (aprox. 180 g)","Carn picada per a burguer (150 g)","Filet de porc (150 g)",
+    "Tonyina al natural","Ous (1 dotzena)","Pernil dolç (paquet)"
  ]},
- { cat:"Lácteos", items:[
-    "Yogur griego natural (pack grande)","Queso (para huevos)"
+ { cat:"Làctics", items:[
+    "Iogurt grec natural (pack gran)","Formatge (per als ous)"
  ]},
- { cat:"Hidratos de carbono", items:[
-    "Arroz","Quinoa","Pasta","Patatas","Pan de molde o tostas","Muesli"
+ { cat:"Hidrats de carboni", items:[
+    "Arròs","Quinoa","Pasta","Patates","Pa de motlle o torrades","Muesli"
  ]},
- { cat:"Verduras y hortalizas", items:[
-    "Lechuga / canónigos","Tomate","Pepino","Pimiento","Cebolla","Calabacín",
-    "Brócoli","Zanahoria","Aguacate (varios)","Ajo","Lentejas cocidas"
+ { cat:"Verdures i hortalisses", items:[
+    "Enciam / canonges","Tomàquet","Cogombre","Pebrot","Ceba","Carbassó",
+    "Bròquil","Pastanaga","Alvocat (diversos)","All","Llenties cuites"
  ]},
- { cat:"Fruta", items:[
-    "Fruta variada de temporada (para desayunos, snacks y postres)"
+ { cat:"Fruita", items:[
+    "Fruita variada de temporada (per esmorzars, snacks i postres)"
  ]},
- { cat:"Despensa y otros", items:[
-    "Gazpacho (brik o casero)","Frutos secos (crudos, sin sal)","Aceite de oliva virgen extra",
-    "Limón","Especias (pimentón, comino, romero)"
+ { cat:"Rebost i altres", items:[
+    "Gaspatxo (bric o casolà)","Fruits secs (crus, sense sal)","Oli d'oliva verge extra",
+    "Llimona","Espècies (pimentó, comí, romaní)"
  ]}
 ];
 
 /* =========================================================
-   RENDER — HOY
+   RENDER — AVUI
    ========================================================= */
-const monthsEs = ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
-const weekdaysEs = ["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"];
+const monthsCa = ["gener","febrer","març","abril","maig","juny","juliol","agost","setembre","octubre","novembre","desembre"];
+const weekdaysCa = ["Diumenge","Dilluns","Dimarts","Dimecres","Dijous","Divendres","Dissabte"];
 
 function getTodayIndex(){
   const jsDay = new Date().getDay();
-  return dayIndexFromJS[jsDay]; // null si domingo
+  return dayIndexFromJS[jsDay]; // null si diumenge
 }
 
 function mealIcon(kind, sage){
@@ -669,41 +686,52 @@ function mealIcon(kind, sage){
 
 function renderMealRows(d){
   return `
-    <div class="meal-row">${mealIcon('desayuno')}<div class="meal-text"><div class="meal-label">DESAYUNO</div><div class="meal-desc">${d.desayuno}</div></div></div>
-    <div class="meal-row">${mealIcon('snack')}<div class="meal-text"><div class="meal-label">SNACK MAÑANA</div><div class="meal-desc">${d.snack}</div></div></div>
-    <div class="meal-row">${mealIcon('comida')}<div class="meal-text"><div class="meal-label">COMIDA</div><div class="meal-desc">${d.comida}</div></div></div>
-    <div class="meal-row">${mealIcon('merienda')}<div class="meal-text"><div class="meal-label">MERIENDA</div><div class="meal-desc">${d.merienda}</div></div></div>
-    <div class="meal-row">${mealIcon('cena')}<div class="meal-text"><div class="meal-label">CENA</div><div class="meal-desc">${d.cena}</div></div></div>
-    <div class="meal-row">${mealIcon('deporte', true)}<div class="meal-text"><div class="meal-label">DEPORTE DEL DÍA</div><div class="meal-desc">${d.deporte}</div></div></div>
+    <div class="meal-row">${mealIcon('desayuno')}<div class="meal-text"><div class="meal-label">${MEAL_LABELS.desayuno}</div><div class="meal-desc">${d.desayuno}</div></div></div>
+    <div class="meal-row">${mealIcon('snack')}<div class="meal-text"><div class="meal-label">${MEAL_LABELS.snack}</div><div class="meal-desc">${d.snack}</div></div></div>
+    <div class="meal-row">${mealIcon('comida')}<div class="meal-text"><div class="meal-label">${MEAL_LABELS.comida}</div><div class="meal-desc">${d.comida}</div></div></div>
+    <div class="meal-row">${mealIcon('merienda')}<div class="meal-text"><div class="meal-label">${MEAL_LABELS.merienda}</div><div class="meal-desc">${d.merienda}</div></div></div>
+    <div class="meal-row">${mealIcon('cena')}<div class="meal-text"><div class="meal-label">${MEAL_LABELS.cena}</div><div class="meal-desc">${d.cena}</div></div></div>
+    <div class="meal-row">${mealIcon('deporte', true)}<div class="meal-text"><div class="meal-label">${MEAL_LABELS.deporte}</div><div class="meal-desc">${d.deporte}</div></div></div>
   `;
 }
 
 function renderHoy(){
   const idx = getTodayIndex();
   const now = new Date();
-  document.getElementById('todayLine').textContent = `${weekdaysEs[now.getDay()]}, ${now.getDate()} de ${monthsEs[now.getMonth()]}`;
+  document.getElementById('todayLine').textContent = `${weekdaysCa[now.getDay()]}, ${now.getDate()} de ${monthsCa[now.getMonth()]}`;
 
   const hoyContent = document.getElementById('hoyContent');
+  const todayRecipes = document.getElementById('todayRecipes');
+  const recipesLabel = document.querySelector('#screen-hoy .section-label');
+
   if(idx === null){
     hoyContent.innerHTML = `
       <div class="today-card">
-        <div class="day-big">Hoy</div>
-        <h3>Domingo — día libre</h3>
+        <div class="day-big">Avui</div>
+        <h3>Diumenge — dia lliure</h3>
         <p style="font-size:14.5px; color:var(--ink-soft); line-height:1.5; margin:0 0 4px;">
-          No hay plan marcado para hoy. Descansa, disfruta y coge fuerzas: mañana empieza la semana de nuevo.
+          No hi ha pla marcat per avui. Descansa, gaudeix i agafa forces: demà torna a començar la setmana.
         </p>
       </div>`;
+    todayRecipes.innerHTML = '';
+    if(recipesLabel) recipesLabel.style.display = 'none';
   } else {
     const d = week[idx];
     hoyContent.innerHTML = `
       <div class="today-card">
-        <div class="day-big">Hoy</div>
+        <div class="day-big">Avui</div>
         <h3>${d.label}</h3>
         ${renderMealRows(d)}
       </div>`;
+    if(recipesLabel) recipesLabel.style.display = '';
+    todayRecipes.innerHTML = `
+      <div class="today-recipe-card">${recipeCardHTML(d.key,'comida',MEAL_LABELS.comida)}</div>
+      <div class="today-recipe-card">${recipeCardHTML(d.key,'cena',MEAL_LABELS.cena)}</div>
+    `;
+    wireAltToggles(todayRecipes);
   }
 
-  // próximos días (hasta 3, ciclando lunes-sábado)
+  // pròxims dies (fins a 3, cíclicament dilluns-dissabte)
   const upcoming = document.getElementById('upcomingScroll');
   let start = (idx === null) ? 0 : idx + 1;
   let chips = [];
@@ -726,7 +754,7 @@ function renderHoy(){
 }
 
 /* =========================================================
-   RENDER — SEMANA
+   RENDER — SETMANA
    ========================================================= */
 function renderSemana(){
   const tabs = document.getElementById('weekTabs');
@@ -740,13 +768,12 @@ function renderSemana(){
     <div class="week-day-card ${i===0?'active':''}" data-day="${d.key}">
       <div class="today-card">
         <div class="day-big">${d.label}</div>
-        <h3 style="margin-bottom:16px;">Menú del día</h3>
+        <h3 style="margin-bottom:16px;">Menú del dia</h3>
         ${renderMealRows(d)}
       </div>
     </div>
   `).join('');
 
-  // seleccionar el día de hoy por defecto si aplica
   const idx = getTodayIndex();
   if(idx !== null) selectWeekDay(week[idx].key);
 }
@@ -756,7 +783,7 @@ function selectWeekDay(key){
 }
 
 /* =========================================================
-   RENDER — RECETAS
+   RENDER — RECEPTES
    ========================================================= */
 function renderRecetas(){
   const tabs = document.getElementById('recipeTabs');
@@ -775,7 +802,7 @@ function altBlockHTML(proteinKey, uid){
   return `
     <div class="alt-toggle" data-alt="${uid}">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
-      Otras formas de prepararlo
+      Altres maneres de preparar-ho
     </div>
     <div class="alt-body" id="alt-${uid}">
       ${opts.map(o=>`<div class="alt-item"><b>${o.name}</b>${o.desc}</div>`).join('')}
@@ -799,6 +826,26 @@ function recipeCardHTML(dayKey, mealType, label){
   `;
 }
 
+function wireAltToggles(scopeEl){
+  scopeEl.querySelectorAll('.alt-toggle').forEach(t=>{
+    if(t.dataset.wired) return;
+    t.dataset.wired = '1';
+    t.addEventListener('click', (e)=>{
+      e.stopPropagation();
+      const id = t.dataset.alt;
+      const body = document.getElementById('alt-'+id);
+      const willOpen = !body.classList.contains('open');
+      body.classList.toggle('open', willOpen);
+      t.classList.toggle('open', willOpen);
+      const accBody = t.closest('.accordion-body');
+      if(accBody){
+        const acc = t.closest('.accordion');
+        if(acc && acc.classList.contains('open')) accBody.style.maxHeight = accBody.scrollHeight+'px';
+      }
+    });
+  });
+}
+
 function buildRecipeAccordion(dayKey, open){
   const d = week.find(w=>w.key===dayKey);
   const container = document.getElementById('recipeAccordions');
@@ -812,14 +859,14 @@ function buildRecipeAccordion(dayKey, open){
         <div class="ah-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${ICONS.comida}</svg></div>
         <div>
           <div class="ah-title">${d.label}</div>
-          <div class="ah-sub">Comida y cena</div>
+          <div class="ah-sub">${MEAL_LABELS.comida} i ${MEAL_LABELS.cena}</div>
         </div>
       </div>
       <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
     </div>
     <div class="accordion-body">
-      ${recipeCardHTML(dayKey,'comida','COMIDA')}
-      ${recipeCardHTML(dayKey,'cena','CENA')}
+      ${recipeCardHTML(dayKey,'comida',MEAL_LABELS.comida)}
+      ${recipeCardHTML(dayKey,'cena',MEAL_LABELS.cena)}
     </div>
   `;
   container.appendChild(wrap);
@@ -832,19 +879,7 @@ function buildRecipeAccordion(dayKey, open){
     body.style.maxHeight = willOpen ? body.scrollHeight + 'px' : 0;
   });
 
-  wrap.querySelectorAll('.alt-toggle').forEach(t=>{
-    t.addEventListener('click', (e)=>{
-      e.stopPropagation();
-      const id = t.dataset.alt;
-      const body = document.getElementById('alt-'+id);
-      const willOpen = !body.classList.contains('open');
-      body.classList.toggle('open', willOpen);
-      t.classList.toggle('open', willOpen);
-      // recalcular altura del acordeón padre
-      const accBody = t.closest('.accordion-body');
-      requestAnimationFrame(()=>{ accBody.parentElement.style.setProperty('--x',''); const acc = t.closest('.accordion'); if(acc.classList.contains('open')) accBody.style.maxHeight = accBody.scrollHeight+'px'; });
-    });
-  });
+  wireAltToggles(wrap);
 }
 function selectRecipeDay(key){
   document.querySelectorAll('#recipeTabs button').forEach(b=> b.classList.toggle('active', b.dataset.day===key));
@@ -904,7 +939,7 @@ document.getElementById('shopReset').addEventListener('click', ()=>{
 });
 
 /* =========================================================
-   NAVEGACIÓN
+   NAVEGACIÓ
    ========================================================= */
 function switchTab(tab){
   document.querySelectorAll('.screen').forEach(s=> s.classList.remove('active'));
