@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Menú Setmanal</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Menú">
+<meta name="theme-color" content="#FBF4EF">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23E7AFAE'/%3E%3C/svg%3E">
+<style>
+  :root{
+    --bg:#FBF4EF;
+    --card:#FFFFFF;
+    --rose:#E7AFAE;
+    --rose-deep:#BE7679;
+    --rose-tint:#F7E6E4;
+    --ink:#3A2E2B;
+    --ink-soft:#8A7A74;
+    --sage:#8C9B7B;
+    --sage-tint:#EDF0E6;
+    --line:#EEDFD9;
+    --gold:#C9A66B;
+    --radius:18px;
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Karla',sans-serif;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+  }
+  #app{
+    width:100%;
+    max-width:480px;
+    min-height:100vh;
+    position:relative;
+    padding-bottom:92px;
+    background:
+      radial-gradient(circle at 8% 0%, rgba(231,175,174,0.16) 0%, transparent 40%),
+      radial-gradient(circle at 100% 8%, rgba(140,155,123,0.14) 0%, transparent 38%),
+      var(--bg);
+  }
+
+  /* ---------- Header ---------- */
+  header{
+    padding:30px 22px 18px;
+    position:relative;
+  }
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .brand svg{flex:0 0 auto;}
+  .brand h1{
+    font-family:'Fraunces',serif;
+    font-weight:500;
+    font-size:29px;
+    margin:0;
+    letter-spacing:0.2px;
+    line-height:1.05;
+  }
+  .brand span{
+    display:block;
+    font-family:'Karla',sans-serif;
+    font-size:12.5px;
+    color:var(--ink-soft);
+    letter-spacing:0.4px;
+    margin-top:2px;
+  }
+
+  /* ---------- Tab bar (bottom) ---------- */
+  nav.tabbar{
+    position:fixed;
+    bottom:0;
+    left:50%;
+    transform:translateX(-50%);
+    width:100%;
+    max-width:480px;
+    background:rgba(251,244,239,0.92);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+    border-top:1px solid var(--line);
+    display:flex;
+    padding:9px 6px calc(9px + env(safe-area-inset-bottom));
+    z-index:50;
+  }
+  nav.tabbar button{
+    flex:1;
+    background:none;
+    border:none;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:4px;
+    padding:6px 2px;
+    font-family:'Karla',sans-serif;
+    font-size:11px;
+    font-weight:600;
+    color:var(--ink-soft);
+    cursor:pointer;
+    border-radius:12px;
+    transition:color .18s ease;
+  }
+  nav.tabbar button svg{width:22px;height:22px;stroke:var(--ink-soft); transition:stroke .18s ease;}
+  nav.tabbar button.active{color:var(--rose-deep);}
+  nav.tabbar button.active svg{stroke:var(--rose-deep);}
+
+  /* ---------- Screens ---------- */
+  .screen{display:none; padding:0 20px;}
+  .screen.active{display:block; animation:fadein .25s ease;}
+  @keyframes fadein{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);}}
+
+  .section-label{
+    font-family:'Karla',sans-serif;
+    font-weight:700;
+    font-size:12.5px;
+    color:var(--rose-deep);
+    margin:0 0 6px 2px;
+    letter-spacing:0.2px;
+  }
+  h2.title{
+    font-family:'Fraunces',serif;
+    font-weight:500;
+    font-size:24px;
+    margin:0 0 2px 2px;
+  }
+  p.sub{color:var(--ink-soft); font-size:13.5px; margin:0 0 18px 2px;}
+
+  /* ---------- Today card ---------- */
+  .today-card{
+    background:var(--card);
+    border-radius:24px;
+    padding:22px 20px 20px;
+    box-shadow:0 10px 30px -14px rgba(58,46,43,0.18);
+    border:1px solid var(--line);
+    margin-bottom:22px;
+  }
+  .today-card .day-big{
+    font-family:'Fraunces',serif;
+    font-style:italic;
+    font-weight:500;
+    font-size:15px;
+    color:var(--rose-deep);
+  }
+  .today-card h3{
+    font-family:'Fraunces',serif;
+    font-weight:500;
+    font-size:26px;
+    margin:2px 0 16px;
+  }
+
+  .meal-row{
+    display:flex;
+    gap:13px;
+    padding:12px 0;
+    border-top:1px solid var(--line);
+  }
+  .meal-row:first-of-type{border-top:none;}
+  .meal-icon{
+    flex:0 0 34px;
+    height:34px;
+    border-radius:10px;
+    background:var(--rose-tint);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .meal-icon.sage{background:var(--sage-tint);}
+  .meal-icon svg{width:17px;height:17px;stroke:var(--rose-deep);}
+  .meal-icon.sage svg{stroke:var(--sage);}
+  .meal-text .meal-label{
+    font-size:11px;
+    font-weight:700;
+    color:var(--ink-soft);
+    letter-spacing:0.3px;
+    margin-bottom:2px;
+  }
+  .meal-text .meal-desc{font-size:14.5px; line-height:1.4;}
+
+  /* upcoming strip */
+  .upcoming-scroll{
+    display:flex;
+    gap:12px;
+    overflow-x:auto;
+    padding:2px 2px 10px;
+    margin:0 -2px;
+    scrollbar-width:none;
+  }
+  .upcoming-scroll::-webkit-scrollbar{display:none;}
+  .upcoming-chip{
+    flex:0 0 auto;
+    width:150px;
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:14px 14px 13px;
+    cursor:pointer;
+  }
+  .upcoming-chip .u-day{
+    font-family:'Fraunces',serif;
+    font-style:italic;
+    color:var(--rose-deep);
+    font-size:13px;
+  }
+  .upcoming-chip .u-main{font-size:12.5px; margin-top:4px; line-height:1.35; color:var(--ink);}
+
+  /* ---------- Week screen ---------- */
+  .day-tabs{
+    display:flex;
+    gap:7px;
+    overflow-x:auto;
+    padding:2px 2px 18px;
+    scrollbar-width:none;
+  }
+  .day-tabs::-webkit-scrollbar{display:none;}
+  .day-tabs button{
+    flex:0 0 auto;
+    border:1px solid var(--line);
+    background:var(--card);
+    padding:9px 15px;
+    border-radius:30px;
+    font-family:'Karla',sans-serif;
+    font-weight:700;
+    font-size:12.5px;
+    color:var(--ink-soft);
+    cursor:pointer;
+  }
+  .day-tabs button.active{
+    background:var(--rose-deep);
+    border-color:var(--rose-deep);
+    color:#fff;
+  }
+  .week-day-card{display:none;}
+  .week-day-card.active{display:block; animation:fadein .2s ease;}
+
+  /* ---------- Recipes ---------- */
+  .accordion{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:16px;
+    margin-bottom:12px;
+    overflow:hidden;
+  }
+  .accordion-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:15px 16px;
+    cursor:pointer;
+  }
+  .accordion-head .ah-left{display:flex; align-items:center; gap:12px;}
+  .accordion-head .ah-icon{
+    width:32px;height:32px;border-radius:9px;
+    background:var(--rose-tint);
+    display:flex;align-items:center;justify-content:center;
+    flex:0 0 auto;
+  }
+  .accordion-head .ah-icon svg{width:16px;height:16px;stroke:var(--rose-deep);}
+  .accordion-head .ah-title{font-weight:700; font-size:14.5px;}
+  .accordion-head .ah-sub{font-size:12px; color:var(--ink-soft); margin-top:1px;}
+  .chev{transition:transform .22s ease; stroke:var(--ink-soft); width:15px;height:15px; flex:0 0 auto;}
+  .accordion.open .chev{transform:rotate(180deg);}
+  .accordion-body{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .28s ease;
+    padding:0 16px;
+  }
+  .accordion.open .accordion-body{padding:0 16px 18px;}
+  .recipe-block{padding-top:6px; border-top:1px solid var(--line); margin-top:2px;}
+  .recipe-block h4{
+    font-family:'Fraunces',serif;
+    font-weight:500;
+    font-size:16px;
+    margin:14px 0 8px;
+  }
+  .recipe-block .ing-list{
+    list-style:none; margin:0 0 12px; padding:0;
+    display:flex; flex-wrap:wrap; gap:6px;
+  }
+  .recipe-block .ing-list li{
+    background:var(--sage-tint);
+    color:#5B6650;
+    font-size:12px;
+    font-weight:600;
+    padding:5px 10px;
+    border-radius:20px;
+  }
+  .recipe-block ol{
+    margin:0; padding-left:19px; font-size:13.5px; line-height:1.65; color:var(--ink);
+  }
+  .recipe-block ol li{margin-bottom:6px;}
+  .alt-toggle{
+    margin-top:14px;
+    font-size:12.5px;
+    font-weight:700;
+    color:var(--rose-deep);
+    cursor:pointer;
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+  }
+  .alt-toggle svg{width:12px;height:12px; transition:transform .2s ease;}
+  .alt-toggle.open svg{transform:rotate(45deg);}
+  .alt-body{display:none; margin-top:10px;}
+  .alt-body.open{display:block;}
+  .alt-item{
+    background:var(--rose-tint);
+    border-radius:12px;
+    padding:10px 12px;
+    margin-bottom:8px;
+    font-size:12.5px;
+    line-height:1.5;
+  }
+  .alt-item b{display:block; font-size:13px; margin-bottom:2px; color:var(--ink);}
+
+  /* ---------- Shopping list ---------- */
+  .shop-progress{
+    display:flex; align-items:center; gap:10px;
+    background:var(--card); border:1px solid var(--line);
+    border-radius:16px; padding:14px 16px; margin-bottom:18px;
+  }
+  .shop-progress .bar-bg{
+    flex:1; height:7px; border-radius:6px; background:var(--rose-tint); overflow:hidden;
+  }
+  .shop-progress .bar-fill{
+    height:100%; background:var(--sage); border-radius:6px; width:0%; transition:width .3s ease;
+  }
+  .shop-progress .bar-count{font-size:12px; font-weight:700; color:var(--ink-soft); white-space:nowrap;}
+  .shop-cat{margin-bottom:20px;}
+  .shop-cat h5{
+    font-family:'Karla',sans-serif;
+    font-size:12px; font-weight:700; letter-spacing:0.3px;
+    color:var(--sage); text-transform:uppercase; margin:0 0 8px 2px;
+  }
+  .shop-item{
+    display:flex; align-items:center; gap:12px;
+    background:var(--card); border:1px solid var(--line);
+    border-radius:13px; padding:12px 14px; margin-bottom:7px;
+    cursor:pointer; user-select:none;
+  }
+  .shop-item .box{
+    width:21px;height:21px;border-radius:7px;
+    border:1.6px solid var(--rose-deep);
+    flex:0 0 auto; display:flex; align-items:center; justify-content:center;
+    transition:background .15s ease, border-color .15s ease;
+  }
+  .shop-item .box svg{width:12px;height:12px; opacity:0; stroke:#fff; transition:opacity .15s ease;}
+  .shop-item.checked .box{background:var(--rose-deep);}
+  .shop-item.checked .box svg{opacity:1;}
+  .shop-item .s-text{font-size:14px; flex:1;}
+  .shop-item.checked .s-text{color:var(--ink-soft); text-decoration:line-through;}
+  .shop-reset{
+    width:100%; margin-top:6px; margin-bottom:10px;
+    background:none; border:1px solid var(--line); border-radius:13px;
+    padding:12px; font-family:'Karla',sans-serif; font-weight:700; font-size:13px;
+    color:var(--ink-soft); cursor:pointer;
+  }
+
+  footer.note{
+    text-align:center; font-size:11.5px; color:var(--ink-soft);
+    padding:6px 30px 26px; line-height:1.6;
+  }
+</style>
+</head>
+<body>
+<div id="app">
+
+  <header>
+    <div class="brand">
+      <svg width="34" height="34" viewBox="0 0 34 34" fill="none">
+        <circle cx="17" cy="17" r="16" stroke="#E7AFAE" stroke-width="1.4"/>
+        <path d="M17 9c1.2 2 1.2 4.6 0 7-1.2-2.4-1.2-5 0-7Z" fill="#BE7679"/>
+        <path d="M17 25c-1.2-2-1.2-4.6 0-7 1.2 2.4 1.2 5 0 7Z" fill="#BE7679"/>
+        <path d="M9 17c2-1.2 4.6-1.2 7 0-2.4 1.2-5 1.2-7 0Z" fill="#8C9B7B"/>
+        <path d="M25 17c-2 1.2-4.6 1.2-7 0 2.4-1.2 5-1.2 7 0Z" fill="#8C9B7B"/>
+      </svg>
+      <div>
+        <h1>Menú Setmanal</h1>
+        <span id="todayLine">—</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================== HOY ===================== -->
+  <section class="screen active" id="screen-hoy">
+    <div id="hoyContent"></div>
+
+    <p class="section-label">PRÓXIMOS DÍAS</p>
+    <div class="upcoming-scroll" id="upcomingScroll"></div>
+  </section>
+
+  <!-- ===================== SEMANA ===================== -->
+  <section class="screen" id="screen-semana">
+    <h2 class="title">La semana</h2>
+    <p class="sub">Todo el menú, día a día.</p>
+    <div class="day-tabs" id="weekTabs"></div>
+    <div id="weekCards"></div>
+  </section>
+
+  <!-- ===================== RECETAS ===================== -->
+  <section class="screen" id="screen-recetas">
+    <h2 class="title">Recetas</h2>
+    <p class="sub">Cómo preparar cada plato, con alternativas.</p>
+    <div class="day-tabs" id="recipeTabs"></div>
+    <div id="recipeAccordions"></div>
+  </section>
+
+  <!-- ===================== COMPRA ===================== -->
+  <section class="screen" id="screen-compra">
+    <h2 class="title">Lista de la compra</h2>
+    <p class="sub">Todo lo que hace falta para la semana.</p>
+    <div class="shop-progress">
+      <div class="bar-bg"><div class="bar-fill" id="shopBarFill"></div></div>
+      <div class="bar-count" id="shopCount">0/0</div>
+    </div>
+    <div id="shopList"></div>
+    <button class="shop-reset" id="shopReset">Desmarcar todo</button>
+  </section>
+
+  <nav class="tabbar">
+    <button data-tab="hoy" class="active">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.4M12 19.6V22M4.2 4.2l1.7 1.7M18.1 18.1l1.7 1.7M2 12h2.4M19.6 12H22M4.2 19.8l1.7-1.7M18.1 5.9l1.7-1.7"/></svg>
+      Hoy
+    </button>
+    <button data-tab="semana">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="4.5" width="17" height="16" rx="3"/><path d="M3.5 9.5h17M8 2.5v4M16 2.5v4"/></svg>
+      Semana
+    </button>
+    <button data-tab="recetas">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3.5h11.5a2 2 0 0 1 2 2V21H7a2 2 0 0 1-2-2V3.5Z"/><path d="M5 17.5h13.5M9 8h6M9 11.5h6"/></svg>
+      Recetas
+    </button>
+    <button data-tab="compra">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16l-1.4 11.2a2 2 0 0 1-2 1.8H7.4a2 2 0 0 1-2-1.8L4 7Z"/><path d="M8 7V5.5a4 4 0 0 1 8 0V7"/></svg>
+      Compra
+    </button>
+  </nav>
+
+</div>
+
+<script>
+/* =========================================================
+   DATOS DEL MENÚ
+   ========================================================= */
+const ICONS = {
+  desayuno: '<path d="M4 9h13a4 4 0 0 1 0 8H4V9Z"/><path d="M17 11h1a3 3 0 0 1 0 6h-1"/><path d="M6 5.5c0 1-1 1-1 2M9.5 5.5c0 1-1 1-1 2M13 5.5c0 1-1 1-1 2"/>',
+  snack: '<circle cx="12" cy="13" r="7.5"/><path d="M9.5 3.5c1 .8 1 1.8 0 3M14.5 3.5c-1 .8-1 1.8 0 3"/>',
+  comida: '<path d="M6 3v7a3 3 0 0 0 3 3v8M9 3v7M12 3v7M18 3c-2 1-3 3-3 6s1 4 3 4v8"/>',
+  merienda: '<circle cx="12" cy="12" r="8"/><path d="M12 8v4l2.5 2.5"/>',
+  cena: '<path d="M4 12a8 8 0 1 0 16.6-5.3A6 6 0 0 1 12 14 6 6 0 0 1 4 12Z"/>',
+  deporte: '<circle cx="12" cy="12" r="8"/><path d="M12 4.5 12 8M12 16v3.5M4.5 12H8M16 12h3.5M6.8 6.8 9 9M15 15l2.2 2.2M6.8 17.2 9 15M15 9l2.2-2.2"/>'
+};
+
+const week = [
+ { key:'lunes', label:'Lunes', short:'LUN',
+   desayuno:"Café + tostas amb pavo i queso",
+   snack:"Griego natural + frutos secos",
+   comida:"180 g de pollo + 70 g de arroz + ensalada + fruta",
+   merienda:"Fruta + 3 lonchas de jamón dulce",
+   cena:"180 g de merluza + gazpacho + Griego",
+   deporte:"Piwi a la pía · 20:30h" },
+ { key:'martes', label:'Martes', short:'MAR',
+   desayuno:"Café + Griego natural + muesli + fruta",
+   snack:"Fruta + 3 lonchas de jamón dulce",
+   comida:"150 g de salmón + 150 g de quinoa + ensalada + fruta",
+   merienda:"Griego natural + frutos secos",
+   cena:"180 g de pavo + ensalada de aguacate + Griego",
+   deporte:"Running suave" },
+ { key:'miercoles', label:'Miércoles', short:'MIÉ',
+   desayuno:"Café + tostas amb atún",
+   snack:"Griego natural + frutos secos",
+   comida:"150 g de burger + 250 g de patata + verduras + fruta",
+   merienda:"Fruta + 3 lonchas de jamón dulce",
+   cena:"2 huevos con queso + gazpacho o crema + Griego",
+   deporte:"Piwi + bici al Barci" },
+ { key:'jueves', label:'Jueves', short:'JUE',
+   desayuno:"Café + Griego natural + muesli + fruta",
+   snack:"Fruta + 3 lonchas de jamón dulce",
+   comida:"180 g de merluza + 150 g de arroz + verduras + fruta",
+   merienda:"Griego natural + frutos secos",
+   cena:"180 g de pollo + verduras + Griego",
+   deporte:"Crosstrain al Barci · 20:00h" },
+ { key:'viernes', label:'Viernes', short:'VIE',
+   desayuno:"Café + 2 huevos + jamón dulce o salmón + fruta",
+   snack:"Griego natural + frutos secos",
+   comida:"150 g de cerdo + 75 g de pasta + verduras + fruta",
+   merienda:"Fruta + 3 lonchas de jamón dulce",
+   cena:"Ensalada de aguacate y atún + Griego",
+   deporte:"Running suave" },
+ { key:'sabado', label:'Sábado', short:'SÁB',
+   desayuno:"Café + tostas amb jamón dulce",
+   snack:"Fruta + 3 lonchas de jamón dulce",
+   comida:"Ensalada de lentejas, verduras y salmón + fruta",
+   merienda:"Griego natural + frutos secos",
+   cena:"2 huevos con queso + gazpacho o crema + Griego",
+   deporte:"Ruta en bici · a primera hora" },
+];
+
+// JS getDay(): 0=domingo,1=lunes...6=sábado  → índice en week[] (domingo se trata aparte)
+const dayIndexFromJS = [null,0,1,2,3,4,5];
+
+/* =========================================================
+   RECETAS
+   ========================================================= */
+const recipes = {
+ lunes: {
+  comida:{title:"Pollo al horno con arroz y ensalada", tags:["Pollo 180g","Arroz 70g","Ensalada","Fruta"],
+   steps:["Sazona el pechuga de pollo con sal, pimienta, ajo en polvo y un chorrito de aceite de oliva.",
+          "Ásala en el horno a 200°C durante 18-20 minutos, hasta que esté dorada por fuera y jugosa por dentro.",
+          "Cuece el arroz en agua con sal unos 12 minutos y escurre.",
+          "Monta el plato con el pollo, el arroz y una ensalada verde con tomate; termina con fruta."]},
+  cena:{title:"Merluza con gazpacho", tags:["Merluza 180g","Gazpacho","Griego"],
+   steps:["Salpimienta el lomo de merluza y cocínalo a la plancha 2-3 minutos por lado con un poco de aceite.",
+          "Sirve con un vaso de gazpacho frío como entrante.",
+          "Termina con un yogur griego natural."]}
+ },
+ martes: {
+  comida:{title:"Salmón con quinoa y ensalada", tags:["Salmón 150g","Quinoa 150g","Ensalada","Fruta"],
+   steps:["Lava la quinoa y cuécela en agua con sal (proporción 1:2) durante 12-15 minutos; deja reposar tapada 5 min.",
+          "Cocina el salmón a la plancha con piel, 3-4 minutos por lado, con sal y un toque de limón.",
+          "Sirve el salmón sobre la quinoa junto con una ensalada fresca y remata con fruta."]},
+  cena:{title:"Pavo con ensalada de aguacate", tags:["Pavo 180g","Aguacate","Griego"],
+   steps:["Cocina la pechuga de pavo a la plancha en filetes finos, vuelta y vuelta, con sal y pimienta.",
+          "Prepara la ensalada: aguacate en dados, tomate, lechuga y un chorrito de aceite y limón.",
+          "Sirve el pavo sobre la ensalada y acompaña con Griego natural."]}
+ },
+ miercoles: {
+  comida:{title:"Burger casera con patata y verduras", tags:["Burger 150g","Patata 250g","Verduras","Fruta"],
+   steps:["Forma la hamburguesa (carne picada magra 150g) con sal, pimienta y un poco de ajo picado.",
+          "Cocínala a la plancha 3-4 minutos por lado según el punto deseado.",
+          "Corta la patata en gajos, hornea a 200°C 25-30 min con un poco de aceite y sal.",
+          "Sirve con verduras salteadas (pimiento, calabacín, cebolla) y fruta de postre."]},
+  cena:{title:"Huevos con gazpacho o crema", tags:["Huevos x2","Queso","Gazpacho / crema","Griego"],
+   steps:["Cuece o cocina los huevos a la plancha con un poco de queso fundido por encima.",
+          "Acompaña con un vaso de gazpacho frío, o si lo prefieres, una crema de verduras templada.",
+          "Termina con Griego natural."]}
+ },
+ jueves: {
+  comida:{title:"Merluza con arroz y verduras", tags:["Merluza 180g","Arroz 150g","Verduras","Fruta"],
+   steps:["Cuece el arroz en agua con sal, unos 12 minutos, y escurre.",
+          "Cocina la merluza al horno o a la plancha con sal, ajo y perejil, 6-8 minutos.",
+          "Saltea las verduras (brócoli, zanahoria, calabacín) con un poco de aceite y ajo.",
+          "Monta el plato y termina con fruta."]},
+  cena:{title:"Pollo con verduras", tags:["Pollo 180g","Verduras","Griego"],
+   steps:["Corta el pollo en tiras y saltéalo en la sartén con un poco de aceite, sal y especias al gusto.",
+          "Añade verduras variadas (pimiento, cebolla, calabacín) y saltea 6-8 minutos más.",
+          "Sirve caliente y acompaña con Griego natural."]}
+ },
+ viernes: {
+  comida:{title:"Cerdo con pasta y verduras", tags:["Cerdo 150g","Pasta 75g","Verduras","Fruta"],
+   steps:["Cuece la pasta en agua con sal según el tiempo del paquete y escurre.",
+          "Cocina el solomillo o filete de cerdo a la plancha con sal, pimienta y un toque de pimentón.",
+          "Saltea unas verduras de temporada y mezcla todo o sirve por separado.",
+          "Acompaña con fruta de postre."]},
+  cena:{title:"Ensalada de aguacate y atún", tags:["Atún","Aguacate","Griego"],
+   steps:["Escurre bien el atún (al natural) y mézclalo con aguacate en dados.",
+          "Añade tomate, lechuga o canónigos, y un chorrito de aceite de oliva y limón.",
+          "Sirve fresco y acompaña con Griego natural."]}
+ },
+ sabado: {
+  comida:{title:"Ensalada de lentejas, verduras y salmón", tags:["Lentejas","Verduras","Salmón","Fruta"],
+   steps:["Si usas lentejas cocidas de bote, escúrrelas y lávalas bajo el grifo.",
+          "Cocina un trozo de salmón a la plancha, 3-4 minutos por lado.",
+          "Mezcla las lentejas con verduras frescas troceadas (tomate, pepino, pimiento) y un aliño de aceite, vinagre y sal.",
+          "Corona la ensalada con el salmón desmigado y añade fruta de postre."]},
+  cena:{title:"Huevos con gazpacho o crema", tags:["Huevos x2","Queso","Gazpacho / crema","Griego"],
+   steps:["Cocina los huevos al gusto (a la plancha o revueltos) con un poco de queso.",
+          "Acompaña con gazpacho frío o una crema de verduras templada.",
+          "Termina con Griego natural."]}
+ }
+};
+
+// Opciones alternativas de preparación por ingrediente principal, para dar variedad
+const altOptions = {
+ pollo: [
+  {name:"Pollo al horno con limón y romero", desc:"Marina el pollo con zumo de limón, romero, ajo y aceite 15 min. Hornea a 200°C 20 min."},
+  {name:"Pollo salteado con soja y jengibre", desc:"Tiras de pollo salteadas a fuego fuerte con salsa de soja, jengibre rallado y un toque de miel."}
+ ],
+ salmon: [
+  {name:"Salmón al papillote", desc:"Envuelve el salmón con limón, eneldo y verduras en papel de horno; hornea 15 min a 190°C."},
+  {name:"Salmón marinado en soja y sésamo", desc:"Marina 10 min en soja, sésamo y un toque de miel, luego a la plancha 3 min por lado."}
+ ],
+ merluza: [
+  {name:"Merluza en salsa verde", desc:"Rehoga ajo y perejil en aceite, añade un poco de caldo y cuece la merluza tapada 8 min."},
+  {name:"Merluza al horno con tomate", desc:"Sobre una base de tomate troceado y cebolla, hornea la merluza 15 min a 190°C."}
+ ],
+ pavo: [
+  {name:"Pavo a la plancha con especias", desc:"Filetes finos con pimentón, comino y un toque de limón, vuelta y vuelta en la sartén."},
+  {name:"Brochetas de pavo al horno", desc:"Pavo en dados con pimiento y cebolla, brocheta al horno 15 min a 200°C."}
+ ],
+ cerdo: [
+  {name:"Solomillo de cerdo al horno", desc:"Sella el solomillo en la sartén y termina en el horno 12-15 min a 190°C con mostaza y hierbas."},
+  {name:"Cerdo salteado estilo salteado asiático", desc:"Tiras de cerdo salteadas con salsa de soja, ajo y verduras crujientes."}
+ ],
+ huevos: [
+  {name:"Tortilla francesa de queso", desc:"Bate los huevos, añade queso rallado y cuaja en la sartén a fuego medio."},
+  {name:"Huevos escalfados", desc:"Cuece los huevos en agua casi hirviendo con un chorro de vinagre, 3 minutos."}
+ ],
+ burger: [
+  {name:"Burger al horno", desc:"Hornea la hamburguesa a 200°C 12-15 min, más ligera que a la plancha."},
+  {name:"Burger con especias marroquíes", desc:"Añade comino, cilantro y pimentón a la carne antes de formar la hamburguesa."}
+ ],
+ legumbres: [
+  {name:"Ensalada de lentejas templada", desc:"Saltea las lentejas cocidas con ajo y pimentón un par de minutos antes de añadir las verduras."},
+  {name:"Bowl de lentejas con hummus", desc:"Cambia el aliño por una cucharada de hummus casero diluido con un poco de agua y limón."}
+ ]
+};
+const proteinByDay = {
+ lunes:{comida:'pollo', cena:'merluza'},
+ martes:{comida:'salmon', cena:'pavo'},
+ miercoles:{comida:'burger', cena:'huevos'},
+ jueves:{comida:'merluza', cena:'pollo'},
+ viernes:{comida:'cerdo', cena:null},
+ sabado:{comida:'legumbres', cena:'huevos'}
+};
+
+/* =========================================================
+   LISTA DE LA COMPRA
+   ========================================================= */
+const shoppingList = [
+ { cat:"Proteínas", items:[
+    "Pechuga de pollo (aprox. 550 g)","Merluza (aprox. 550 g)","Salmón fresco (aprox. 150 g)",
+    "Pavo filetes (aprox. 180 g)","Carne picada para burger (150 g)","Solomillo de cerdo (150 g)",
+    "Atún al natural","Huevos (1 docena)","Jamón dulce (paquete)"
+ ]},
+ { cat:"Lácteos", items:[
+    "Yogur griego natural (pack grande)","Queso (para huevos)"
+ ]},
+ { cat:"Hidratos de carbono", items:[
+    "Arroz","Quinoa","Pasta","Patatas","Pan de molde o tostas","Muesli"
+ ]},
+ { cat:"Verduras y hortalizas", items:[
+    "Lechuga / canónigos","Tomate","Pepino","Pimiento","Cebolla","Calabacín",
+    "Brócoli","Zanahoria","Aguacate (varios)","Ajo","Lentejas cocidas"
+ ]},
+ { cat:"Fruta", items:[
+    "Fruta variada de temporada (para desayunos, snacks y postres)"
+ ]},
+ { cat:"Despensa y otros", items:[
+    "Gazpacho (brik o casero)","Frutos secos (crudos, sin sal)","Aceite de oliva virgen extra",
+    "Limón","Especias (pimentón, comino, romero)"
+ ]}
+];
+
+/* =========================================================
+   RENDER — HOY
+   ========================================================= */
+const monthsEs = ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
+const weekdaysEs = ["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"];
+
+function getTodayIndex(){
+  const jsDay = new Date().getDay();
+  return dayIndexFromJS[jsDay]; // null si domingo
+}
+
+function mealIcon(kind, sage){
+  return `<div class="meal-icon${sage?' sage':''}"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${ICONS[kind]}</svg></div>`;
+}
+
+function renderMealRows(d){
+  return `
+    <div class="meal-row">${mealIcon('desayuno')}<div class="meal-text"><div class="meal-label">DESAYUNO</div><div class="meal-desc">${d.desayuno}</div></div></div>
+    <div class="meal-row">${mealIcon('snack')}<div class="meal-text"><div class="meal-label">SNACK MAÑANA</div><div class="meal-desc">${d.snack}</div></div></div>
+    <div class="meal-row">${mealIcon('comida')}<div class="meal-text"><div class="meal-label">COMIDA</div><div class="meal-desc">${d.comida}</div></div></div>
+    <div class="meal-row">${mealIcon('merienda')}<div class="meal-text"><div class="meal-label">MERIENDA</div><div class="meal-desc">${d.merienda}</div></div></div>
+    <div class="meal-row">${mealIcon('cena')}<div class="meal-text"><div class="meal-label">CENA</div><div class="meal-desc">${d.cena}</div></div></div>
+    <div class="meal-row">${mealIcon('deporte', true)}<div class="meal-text"><div class="meal-label">DEPORTE DEL DÍA</div><div class="meal-desc">${d.deporte}</div></div></div>
+  `;
+}
+
+function renderHoy(){
+  const idx = getTodayIndex();
+  const now = new Date();
+  document.getElementById('todayLine').textContent = `${weekdaysEs[now.getDay()]}, ${now.getDate()} de ${monthsEs[now.getMonth()]}`;
+
+  const hoyContent = document.getElementById('hoyContent');
+  if(idx === null){
+    hoyContent.innerHTML = `
+      <div class="today-card">
+        <div class="day-big">Hoy</div>
+        <h3>Domingo — día libre</h3>
+        <p style="font-size:14.5px; color:var(--ink-soft); line-height:1.5; margin:0 0 4px;">
+          No hay plan marcado para hoy. Descansa, disfruta y coge fuerzas: mañana empieza la semana de nuevo.
+        </p>
+      </div>`;
+  } else {
+    const d = week[idx];
+    hoyContent.innerHTML = `
+      <div class="today-card">
+        <div class="day-big">Hoy</div>
+        <h3>${d.label}</h3>
+        ${renderMealRows(d)}
+      </div>`;
+  }
+
+  // próximos días (hasta 3, ciclando lunes-sábado)
+  const upcoming = document.getElementById('upcomingScroll');
+  let start = (idx === null) ? 0 : idx + 1;
+  let chips = [];
+  for(let i=0;i<3;i++){
+    const p = (start + i) % week.length;
+    chips.push(week[p]);
+  }
+  upcoming.innerHTML = chips.map(d => `
+    <div class="upcoming-chip" data-day="${d.key}">
+      <div class="u-day">${d.label}</div>
+      <div class="u-main">${d.comida.split(' + ')[0]}</div>
+    </div>
+  `).join('');
+  upcoming.querySelectorAll('.upcoming-chip').forEach(el=>{
+    el.addEventListener('click', ()=>{
+      switchTab('semana');
+      selectWeekDay(el.dataset.day);
+    });
+  });
+}
+
+/* =========================================================
+   RENDER — SEMANA
+   ========================================================= */
+function renderSemana(){
+  const tabs = document.getElementById('weekTabs');
+  tabs.innerHTML = week.map((d,i)=>`<button data-day="${d.key}" class="${i===0?'active':''}">${d.short}</button>`).join('');
+  tabs.querySelectorAll('button').forEach(btn=>{
+    btn.addEventListener('click', ()=> selectWeekDay(btn.dataset.day));
+  });
+
+  const cards = document.getElementById('weekCards');
+  cards.innerHTML = week.map((d,i)=>`
+    <div class="week-day-card ${i===0?'active':''}" data-day="${d.key}">
+      <div class="today-card">
+        <div class="day-big">${d.label}</div>
+        <h3 style="margin-bottom:16px;">Menú del día</h3>
+        ${renderMealRows(d)}
+      </div>
+    </div>
+  `).join('');
+
+  // seleccionar el día de hoy por defecto si aplica
+  const idx = getTodayIndex();
+  if(idx !== null) selectWeekDay(week[idx].key);
+}
+function selectWeekDay(key){
+  document.querySelectorAll('#weekTabs button').forEach(b=> b.classList.toggle('active', b.dataset.day===key));
+  document.querySelectorAll('.week-day-card').forEach(c=> c.classList.toggle('active', c.dataset.day===key));
+}
+
+/* =========================================================
+   RENDER — RECETAS
+   ========================================================= */
+function renderRecetas(){
+  const tabs = document.getElementById('recipeTabs');
+  tabs.innerHTML = week.map((d,i)=>`<button data-day="${d.key}" class="${i===0?'active':''}">${d.short}</button>`).join('');
+  tabs.querySelectorAll('button').forEach(btn=>{
+    btn.addEventListener('click', ()=> selectRecipeDay(btn.dataset.day));
+  });
+  week.forEach((d,i)=> buildRecipeAccordion(d.key, i===0));
+  const idx = getTodayIndex();
+  if(idx !== null) selectRecipeDay(week[idx].key);
+}
+
+function altBlockHTML(proteinKey, uid){
+  if(!proteinKey || !altOptions[proteinKey]) return '';
+  const opts = altOptions[proteinKey];
+  return `
+    <div class="alt-toggle" data-alt="${uid}">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+      Otras formas de prepararlo
+    </div>
+    <div class="alt-body" id="alt-${uid}">
+      ${opts.map(o=>`<div class="alt-item"><b>${o.name}</b>${o.desc}</div>`).join('')}
+    </div>
+  `;
+}
+
+function recipeCardHTML(dayKey, mealType, label){
+  const r = recipes[dayKey] && recipes[dayKey][mealType];
+  if(!r) return '';
+  const protein = (proteinByDay[dayKey] || {})[mealType];
+  const uid = dayKey + '-' + mealType;
+  return `
+    <div class="recipe-block">
+      <div class="meal-label" style="color:var(--sage);">${label}</div>
+      <h4>${r.title}</h4>
+      <ul class="ing-list">${r.tags.map(t=>`<li>${t}</li>`).join('')}</ul>
+      <ol>${r.steps.map(s=>`<li>${s}</li>`).join('')}</ol>
+      ${altBlockHTML(protein, uid)}
+    </div>
+  `;
+}
+
+function buildRecipeAccordion(dayKey, open){
+  const d = week.find(w=>w.key===dayKey);
+  const container = document.getElementById('recipeAccordions');
+  const wrap = document.createElement('div');
+  wrap.className = 'accordion recipe-day-block';
+  wrap.dataset.day = dayKey;
+  wrap.style.display = open ? 'block' : 'none';
+  wrap.innerHTML = `
+    <div class="accordion-head">
+      <div class="ah-left">
+        <div class="ah-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${ICONS.comida}</svg></div>
+        <div>
+          <div class="ah-title">${d.label}</div>
+          <div class="ah-sub">Comida y cena</div>
+        </div>
+      </div>
+      <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="accordion-body">
+      ${recipeCardHTML(dayKey,'comida','COMIDA')}
+      ${recipeCardHTML(dayKey,'cena','CENA')}
+    </div>
+  `;
+  container.appendChild(wrap);
+
+  const head = wrap.querySelector('.accordion-head');
+  head.addEventListener('click', ()=>{
+    const body = wrap.querySelector('.accordion-body');
+    const willOpen = !wrap.classList.contains('open');
+    wrap.classList.toggle('open', willOpen);
+    body.style.maxHeight = willOpen ? body.scrollHeight + 'px' : 0;
+  });
+
+  wrap.querySelectorAll('.alt-toggle').forEach(t=>{
+    t.addEventListener('click', (e)=>{
+      e.stopPropagation();
+      const id = t.dataset.alt;
+      const body = document.getElementById('alt-'+id);
+      const willOpen = !body.classList.contains('open');
+      body.classList.toggle('open', willOpen);
+      t.classList.toggle('open', willOpen);
+      // recalcular altura del acordeón padre
+      const accBody = t.closest('.accordion-body');
+      requestAnimationFrame(()=>{ accBody.parentElement.style.setProperty('--x',''); const acc = t.closest('.accordion'); if(acc.classList.contains('open')) accBody.style.maxHeight = accBody.scrollHeight+'px'; });
+    });
+  });
+}
+function selectRecipeDay(key){
+  document.querySelectorAll('#recipeTabs button').forEach(b=> b.classList.toggle('active', b.dataset.day===key));
+  document.querySelectorAll('.recipe-day-block').forEach(c=>{
+    c.style.display = c.dataset.day===key ? 'block' : 'none';
+  });
+}
+
+/* =========================================================
+   RENDER — COMPRA
+   ========================================================= */
+const SHOP_STORAGE_KEY = 'menuSetmanal_shopChecked_v1';
+function loadChecked(){
+  try{ return JSON.parse(localStorage.getItem(SHOP_STORAGE_KEY)) || {}; }catch(e){ return {}; }
+}
+function saveChecked(state){
+  try{ localStorage.setItem(SHOP_STORAGE_KEY, JSON.stringify(state)); }catch(e){}
+}
+function renderCompra(){
+  const list = document.getElementById('shopList');
+  const checked = loadChecked();
+  list.innerHTML = shoppingList.map(group=>`
+    <div class="shop-cat">
+      <h5>${group.cat}</h5>
+      ${group.items.map(item=>{
+        const id = group.cat+'|'+item;
+        const isChecked = !!checked[id];
+        return `<div class="shop-item ${isChecked?'checked':''}" data-id="${encodeURIComponent(id)}">
+          <div class="box"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="s-text">${item}</div>
+        </div>`;
+      }).join('')}
+    </div>
+  `).join('');
+
+  list.querySelectorAll('.shop-item').forEach(el=>{
+    el.addEventListener('click', ()=>{
+      const state = loadChecked();
+      const id = decodeURIComponent(el.dataset.id);
+      state[id] = !state[id];
+      saveChecked(state);
+      el.classList.toggle('checked', state[id]);
+      updateShopProgress();
+    });
+  });
+  updateShopProgress();
+}
+function updateShopProgress(){
+  const all = document.querySelectorAll('.shop-item');
+  const done = document.querySelectorAll('.shop-item.checked');
+  document.getElementById('shopCount').textContent = `${done.length}/${all.length}`;
+  document.getElementById('shopBarFill').style.width = all.length ? (done.length/all.length*100)+'%' : '0%';
+}
+document.getElementById('shopReset').addEventListener('click', ()=>{
+  saveChecked({});
+  renderCompra();
+});
+
+/* =========================================================
+   NAVEGACIÓN
+   ========================================================= */
+function switchTab(tab){
+  document.querySelectorAll('.screen').forEach(s=> s.classList.remove('active'));
+  document.getElementById('screen-'+tab).classList.add('active');
+  document.querySelectorAll('nav.tabbar button').forEach(b=> b.classList.toggle('active', b.dataset.tab===tab));
+  window.scrollTo(0,0);
+}
+document.querySelectorAll('nav.tabbar button').forEach(btn=>{
+  btn.addEventListener('click', ()=> switchTab(btn.dataset.tab));
+});
+
+/* =========================================================
+   INIT
+   ========================================================= */
+renderHoy();
+renderSemana();
+renderRecetas();
+renderCompra();
+</script>
+</body>
+</html>
