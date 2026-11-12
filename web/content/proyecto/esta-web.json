@@ -1,0 +1,9 @@
+{
+  "titulo": "Esta web",
+  "resumen": "Mi rincón para guardar viajes, plannings, proyectos y hazañas.",
+  "estado": "en-marcha",
+  "fecha": "2026-10-30",
+  "etiquetas": ["Next.js", "Vercel"],
+  "enlace": "https://github.com/polsanchezfernandez/polsanchezfernandez.github.io/tree/main/web",
+  "descripcion": "Cada viaje tiene su ruta, su plan día a día, las reservas y la crónica. El contenido vive en archivos dentro del repo, así que añadir algo nuevo es tan fácil como pedírselo a Claude o usar el panel privado."
+}

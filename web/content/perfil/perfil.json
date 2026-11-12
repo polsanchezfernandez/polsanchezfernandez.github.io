@@ -1,0 +1,10 @@
+{
+  "nombre": "Pol Sánchez",
+  "lema": "Viajes, proyectos y cosas que me hacen ilusión.",
+  "foto": "",
+  "ubicacion": "Barcelona",
+  "bio": "Aquí va tu bio. Cuéntame cuatro cosas sobre ti y la escribo.",
+  "enlaces": [
+    { "nombre": "GitHub", "url": "https://github.com/polsanchezfernandez" }
+  ]
+}

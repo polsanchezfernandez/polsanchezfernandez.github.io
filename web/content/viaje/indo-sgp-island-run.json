@@ -1,0 +1,191 @@
+{
+  "titulo": "Indo ✕ SGP Island Run",
+  "destino": "Indonesia y Singapur",
+  "estado": "hecho",
+  "inicio": "2026-10-02",
+  "fin": "2026-10-18",
+  "resumen": "Uluwatu → Ubud → Gili → Lombok → Singapur. Surf, buceo, arrozales y fiesta, siempre rumbo este. 16 días, 5 paradas, 5 colegas.",
+  "paradas": [
+    {
+      "emoji": "🌅",
+      "lugar": "Uluwatu",
+      "noches": 3,
+      "transporte": "Vuelo"
+    },
+    {
+      "emoji": "🌾",
+      "lugar": "Ubud",
+      "noches": 3,
+      "transporte": "Coche"
+    },
+    {
+      "emoji": "🐢",
+      "lugar": "Gili Trawangan",
+      "noches": 3,
+      "transporte": "Fast boat"
+    },
+    {
+      "emoji": "🏄",
+      "lugar": "Kuta Lombok",
+      "noches": 3,
+      "transporte": "Barco + coche"
+    },
+    {
+      "emoji": "🌃",
+      "lugar": "Singapur",
+      "noches": 3,
+      "transporte": "Vuelo"
+    }
+  ],
+  "dias": [
+    {
+      "fecha": "2026-10-03",
+      "lugar": "Bali · Uluwatu",
+      "titulo": "Llegada + villa en el acantilado",
+      "plan": "Aterrizaje en Denpasar, traslado a Bingin (~40 min). Cena tranqui en un warung sobre el mar y primera noche de vistas al Índico."
+    },
+    {
+      "fecha": "2026-10-04",
+      "lugar": "Bali · Uluwatu",
+      "titulo": "Playas del sur + Single Fin Sunday",
+      "plan": "Padang Padang, Bingin y Dreamland: bajadas por escaleras a calas de postal. Y por la noche, la sesión mítica del domingo en Single Fin."
+    },
+    {
+      "fecha": "2026-10-05",
+      "lugar": "Bali · Uluwatu",
+      "titulo": "Surf + templo + sunset session",
+      "plan": "Surf de mañana en Uluwatu o Bingin. Templo de Uluwatu al atardecer con danza Kecak, y noche en Ulu Cliffhouse o Savaya."
+    },
+    {
+      "fecha": "2026-10-06",
+      "lugar": "Ubud · Interior",
+      "titulo": "Traslado + primera tarde en la selva",
+      "plan": "Coche desde Uluwatu (~2 h). Instalación en la villa entre arrozales, primer paseo por Ubud centro y cena en un restaurante top (Locavore, Room4Dessert, Mozaic)."
+    },
+    {
+      "fecha": "2026-10-07",
+      "lugar": "Ubud · Interior",
+      "titulo": "Arrozales + cascadas",
+      "plan": "Amanecer en los arrozales de Tegallalang, cascadas de Tibumana o Sekumpul, Monkey Forest, y masaje/spa balinés por la tarde para desconectar."
+    },
+    {
+      "fecha": "2026-10-08",
+      "lugar": "Ubud · Interior",
+      "titulo": "Templo Tirta Empul + scooter",
+      "plan": "Baño purificador en el templo Tirta Empul, ruta en scooter por Sidemen o Kintamani (vistas del volcán Batur) y última cena tranqui en Ubud."
+    },
+    {
+      "fecha": "2026-10-09",
+      "lugar": "Gili Trawangan",
+      "titulo": "Fast boat + primera noche",
+      "plan": "Traslado a Padang Bai (~1 h desde Ubud) y fast boat a Gili T (~1,5 h). Tarde de playa, columpios en el agua y arranque del bar crawl."
+    },
+    {
+      "fecha": "2026-10-10",
+      "lugar": "Gili Trawangan",
+      "titulo": "3-Gilis snorkel tour + fiesta",
+      "plan": "Tour en barco por las 3 islas: tortugas en Turtle Point (Meno), estatuas sumergidas de The Nest y coral de Gili Air. Comida en la isla y noche fuerte en Trawangan."
+    },
+    {
+      "fecha": "2026-10-11",
+      "lugar": "Gili Trawangan",
+      "titulo": "Buceo con tortugas + Gili Air",
+      "plan": "Dos inmersiones (Turtle Heaven, Shark Point) o escapada a Gili Air para comer en Pink Coco / Mowie’s. Última noche antes de Lombok."
+    },
+    {
+      "fecha": "2026-10-12",
+      "lugar": "Kuta Lombok",
+      "titulo": "Barco + bajada al sur",
+      "plan": "Barco corto Gili → Bangsal (15 min) y traslado a Kuta Lombok (~2 h). Tarde de check de olas y playa Kuta."
+    },
+    {
+      "fecha": "2026-10-13",
+      "lugar": "Kuta Lombok",
+      "titulo": "Surf en Selong Belanak",
+      "plan": "La ola más noble para todos los niveles. Tarde en Tanjung Aan y atardecer desde Merese Hill."
+    },
+    {
+      "fecha": "2026-10-14",
+      "lugar": "Kuta Lombok",
+      "titulo": "Surf en Gerupuk + scooter",
+      "plan": "Barco hasta el pico de Gerupuk (nivel intermedio). Ruta en scooter por las bahías del sur y última cena tranquila."
+    },
+    {
+      "fecha": "2026-10-15",
+      "lugar": "Singapur",
+      "titulo": "Vuelo directo + skyline",
+      "plan": "Vuelo directo Lombok → Singapur (AirAsia/Scoot, ~3 h). Instalarse en casa del colega y primera noche: rooftop CÉ LA VI con Marina Bay a los pies."
+    },
+    {
+      "fecha": "2026-10-16",
+      "lugar": "Singapur",
+      "titulo": "Marina Bay + Gardens",
+      "plan": "Marina Bay Sands, Gardens by the Bay y el show de luces de los Supertrees. Cena en hawker (Lau Pa Sat / Maxwell) y Boat Quay."
+    },
+    {
+      "fecha": "2026-10-17",
+      "lugar": "Singapur",
+      "titulo": "Sentosa + sábado noche",
+      "plan": "Playa en Sentosa de día, Chinatown y Kampong Glam por la tarde, y la gran noche de despedida por Clarke Quay."
+    },
+    {
+      "fecha": "2026-10-18",
+      "lugar": "Singapur",
+      "titulo": "Vuelta a casa",
+      "plan": "Último brunch, maletas y vuelo Singapur → Barcelona. Fin del Island Run 🤙"
+    }
+  ],
+  "reservas": [
+    {
+      "concepto": "✈️ Vuelo multi-city BCN → DPS + SIN → BCN",
+      "detalle": "Entrada por Bali, salida por Singapur.",
+      "precio": "~900–1.000 €",
+      "hecho": true
+    },
+    {
+      "concepto": "🛫 Vuelo directo Lombok → Singapur",
+      "detalle": "AirAsia o Scoot, ~3 h.",
+      "precio": "130–170 €",
+      "hecho": true
+    },
+    {
+      "concepto": "🏡 Villa en Bingin (Uluwatu) para 5",
+      "detalle": "3 habitaciones con piscina en zona alta.",
+      "precio": "180–260 €/noche",
+      "hecho": true
+    },
+    {
+      "concepto": "🌾 Villa en Ubud para 5",
+      "detalle": "Villa entre arrozales con piscina infinity.",
+      "precio": "150–200 €/noche",
+      "hecho": true
+    },
+    {
+      "concepto": "⛴ Fast boats y traslados",
+      "detalle": "Ubud → Padang Bai + fast boat a Gili T. Gili → Bangsal en barco corto.",
+      "precio": "25–40 €",
+      "hecho": true
+    },
+    {
+      "concepto": "🛏 Alojamiento Gili + Lombok",
+      "detalle": "Bungalow en Gili T y villa con piscina en Kuta Lombok. En Singapur, casa del colega.",
+      "precio": "",
+      "hecho": true
+    },
+    {
+      "concepto": "🛂 Visa on arrival + eSIM",
+      "detalle": "VOA de Indonesia prepagada online y eSIM regional para los dos países.",
+      "precio": "~35 €",
+      "hecho": true
+    },
+    {
+      "concepto": "🩺 Seguro con cobertura de buceo",
+      "detalle": "Que cubra buceo hasta 30–40 m.",
+      "precio": "~80 €",
+      "hecho": true
+    }
+  ],
+  "checklist": [],
+  "relato": "",
+  "fotos": []
+}
