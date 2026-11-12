@@ -178,6 +178,28 @@ section { margin: 48px 0; }
 .fotos img { border-radius: 12px; aspect-ratio: 4 / 3; object-fit: cover; width: 100%; }
 .fotos figcaption { font-size: 13px; color: var(--dim); margin-top: 6px; }
 
+/* Pestañas del viaje */
+.tabs-bar { position: sticky; top: 0; z-index: 5; background: var(--bg); border-bottom: 1px solid var(--line); }
+.tabs { display: flex; gap: 4px; }
+.tabs button { font: 500 15px var(--sans); background: none; border: 0; padding: 16px 14px 14px; color: var(--dim); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; }
+.tabs button.on { color: var(--ink); border-bottom-color: var(--accent); }
+
+/* Diario */
+.diario { max-width: 820px; }
+.diario-vacio { text-align: center; padding: 40px 0; }
+.diario-intro { font: italic 400 24px/1.5 var(--serif); max-width: none; }
+.historia { margin: 56px 0; }
+.historia-portada { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: var(--r); margin-bottom: 20px; }
+.historia h2 { font-size: clamp(30px, 4vw, 42px); margin-top: 4px; }
+.historia .fotos { margin-top: 20px; }
+.recos { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+.reco-grupo { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 18px 20px; }
+.reco-grupo h3 { font-size: 22px; }
+.reco-grupo ul { list-style: none; padding: 0; margin: 0; }
+.reco-grupo li { padding: 10px 0; border-top: 1px solid var(--line); }
+.reco-grupo a { text-decoration: none; }
+.reco-grupo p { margin: 4px 0 0; font-size: 14px; color: var(--dim); }
+
 /* Panel */
 .admin h1 { font-size: 44px; }
 .admin h2 { font-size: 26px; margin: 0; }
@@ -212,7 +234,7 @@ section { margin: 48px 0; }
 }
 
 @media print {
-  .site-head, .site-foot, .cv-actions { display: none; }
+  .site-head, .site-foot, .cv-actions, .tabs-bar { display: none; }
   body { background: #fff; color: #000; font-size: 12px; }
   section { margin: 20px 0; break-inside: avoid-page; }
   .cv-head { grid-template-columns: 160px 1fr; gap: 24px; }

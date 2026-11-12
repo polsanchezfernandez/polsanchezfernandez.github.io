@@ -84,11 +84,63 @@ export const TIPOS: Record<Tipo, { singular: string; plural: string; titulo: str
           { name: "hecho", label: "Hecho", type: "check" },
         ],
       },
-      { name: "relato", label: "Crónica del viaje", type: "textarea", hint: "Lo que pasó, cuando vuelvas" },
-      { name: "fotos", label: "Fotos", type: "list", itemLabel: "Foto", fields: [
-        { name: "url", label: "Foto", type: "image" },
-        { name: "pie", label: "Pie de foto", type: "text" },
-      ] },
+      { name: "relato", label: "Diario: introducción", type: "textarea", hint: "Qué tal fue el viaje, en pocas líneas" },
+      {
+        name: "historias",
+        label: "Diario: historias",
+        type: "list",
+        itemLabel: "Historia",
+        fields: [
+          { name: "titulo", label: "Título", type: "text" },
+          { name: "lugar", label: "Lugar", type: "text" },
+          { name: "fecha", label: "Fecha", type: "date" },
+          { name: "portada", label: "Foto principal", type: "image" },
+          { name: "texto", label: "Texto", type: "textarea", hint: "Deja una línea en blanco entre párrafos" },
+          {
+            name: "fotos",
+            label: "Más fotos",
+            type: "list",
+            itemLabel: "Foto",
+            fields: [
+              { name: "url", label: "Foto", type: "image" },
+              { name: "pie", label: "Pie de foto", type: "text" },
+            ],
+          },
+        ],
+      },
+      {
+        name: "recomendaciones",
+        label: "Diario: recomendaciones",
+        type: "list",
+        itemLabel: "Recomendación",
+        fields: [
+          {
+            name: "categoria",
+            label: "Tipo",
+            type: "select",
+            options: [
+              { value: "comer", label: "Dónde comer" },
+              { value: "dormir", label: "Dónde dormir" },
+              { value: "hacer", label: "Qué hacer" },
+              { value: "consejo", label: "Consejo" },
+            ],
+          },
+          { name: "nombre", label: "Nombre", type: "text" },
+          { name: "lugar", label: "Lugar", type: "text" },
+          { name: "nota", label: "Por qué", type: "textarea" },
+          { name: "enlace", label: "Enlace", type: "url" },
+        ],
+      },
+      {
+        name: "fotos",
+        label: "Diario: galería",
+        type: "list",
+        itemLabel: "Foto",
+        fields: [
+          { name: "url", label: "Foto", type: "image" },
+          { name: "pie", label: "Pie de foto", type: "text" },
+        ],
+      },
     ],
   },
   proyecto: {
