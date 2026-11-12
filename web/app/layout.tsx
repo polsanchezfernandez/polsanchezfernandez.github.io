@@ -15,6 +15,7 @@ const NAV = [
   ["/hazanas", "Hazañas"],
   ["/cosas", "Cosas que me gustan"],
   ["/sobre-mi", "Sobre mí"],
+  ["/cv", "CV"],
 ];
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
@@ -44,8 +45,24 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         </header>
         {children}
         <footer className="site-foot wrap">
-          <span>© {new Date().getFullYear()} {perfil?.data.nombre || "Pol"}</span>
-          <Link href="/admin">Panel</Link>
+          {perfil?.data.enlaces?.length > 0 && (
+            <div className="foot-donde">
+              <h2>Dónde encontrarme</h2>
+              <ul>
+                {perfil!.data.enlaces.map((e: any) => (
+                  <li key={e.url}>
+                    <a href={e.url} target="_blank" rel="noreferrer">
+                      {e.nombre} ↗
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          <div className="foot-bottom">
+            <span>© {new Date().getFullYear()} {perfil?.data.nombre || "Pol"}</span>
+            <Link href="/admin">Panel</Link>
+          </div>
         </footer>
       </body>
     </html>

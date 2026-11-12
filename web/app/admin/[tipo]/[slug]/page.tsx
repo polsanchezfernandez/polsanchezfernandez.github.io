@@ -13,7 +13,8 @@ export default async function Editar({ params }: { params: Promise<{ tipo: strin
   const { tipo, slug } = await params;
   if (!isTipo(tipo)) notFound();
   const item = slug === "nuevo" ? null : await getItem(tipo, slug);
-  if (slug !== "nuevo" && !item && tipo !== "perfil") notFound();
+  const unico = tipo === "perfil" || tipo === "cv";
+  if (slug !== "nuevo" && !item && !unico) notFound();
   const nombre = TIPOS[tipo].singular.toLowerCase();
 
   return (
@@ -23,7 +24,7 @@ export default async function Editar({ params }: { params: Promise<{ tipo: strin
       </p>
       <h1>{item ? `Editar ${nombre}` : `Nuevo: ${nombre}`}</h1>
       <ItemForm tipo={tipo} fields={TIPOS[tipo].fields} slug={item?.slug} initial={item?.data ?? {}} />
-      {item && tipo !== "perfil" && (
+      {item && !unico && (
         <form action={deleteAction} className="danger-zone">
           <input type="hidden" name="tipo" value={tipo} />
           <input type="hidden" name="slug" value={item.slug} />

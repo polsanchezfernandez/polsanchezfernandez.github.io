@@ -1,0 +1,44 @@
+{
+  "rol": "Ecommerce Manager",
+  "resumen": "Casi seis años en ecommerce de moda. Desde 2021 llevo la tienda online de Lola Casademunt, marca española de moda femenina fundada en 1981: he ayudado a multiplicar por 21 las ventas online en cinco años y a subir la conversión del 0,4% al 1,5%, trabajando con la dirección general y la dirección de Ecommerce en presupuesto y rentabilidad. Desde 2026 formo parte del comité de dirección.",
+  "cifras": [
+    { "valor": "×21", "texto": "ventas online en 5 años, de 500 K€ a 10,5 M€" },
+    { "valor": "1,5%", "texto": "de conversión, desde el 0,4% inicial" },
+    { "valor": "~5", "texto": "de ROAS medio con ~700 K€ al año en medios" },
+    { "valor": "250 K", "texto": "usuarios al mes, +14% interanual" }
+  ],
+  "experiencia": [
+    {
+      "puesto": "Ecommerce Manager",
+      "empresa": "Lola Casademunt",
+      "descripcionEmpresa": "Moda femenina española, desde 1981",
+      "lugar": "Barcelona",
+      "desde": "2021",
+      "hasta": "",
+      "logros": "Gestión de la plataforma de ecommerce: de 500.000 € a 10,5 M€ en ventas en 5 años, con previsión de 13 M€ en 2026.\nConversión del 0,4% al 1,5% gracias a mejoras de UX/UI y CRO.\nSEO y paid media: unos 700 K€ de inversión anual con un ROAS medio de ~5.\nMarketplaces europeos (Zalando, El Corte Inglés, About You y Amazon), alrededor del 45% de las ventas online.\nPresupuesto y rentabilidad del canal junto a la dirección general y la dirección de Ecommerce.\nAnálisis de ventas, tráfico y campañas (GA4, Microsoft Clarity) para definir la estrategia comercial online.\nCoordinación con sistemas, logística, marketing, finanzas y retail; negociación y gestión de proveedores clave.\nMiembro del comité de dirección desde 2026."
+    }
+  ],
+  "proyectos": [
+    { "titulo": "Migración de PrestaShop a Shopify", "anio": "2026", "texto": "Dirigí la migración de la tienda: coordinación de proveedores, integraciones y operativa técnica del site. Recién lanzada." },
+    { "titulo": "Internacionalización", "anio": "", "texto": "Expansión por la UE en web y marketplaces, y lanzamiento de las webs de Arabia y México con socios franquiciados." },
+    { "titulo": "Omnicanalidad", "anio": "", "texto": "Las tiendas físicas preparan pedidos online y aceptan devoluciones online, para una experiencia de cliente sin costuras." },
+    { "titulo": "App de compra", "anio": "2022", "texto": "De principio a fin: selección y negociación del proveedor, diseño y funcionalidades. Convierte 2–3 veces más que la web móvil." },
+    { "titulo": "Nueva tienda online", "anio": "2023", "texto": "Diseño y lanzamiento de la nueva web en PrestaShop." },
+    { "titulo": "Migración a SAP", "anio": "", "texto": "Gestión del departamento de ecommerce durante la migración de la compañía a SAP." }
+  ],
+  "formacion": [
+    { "titulo": "Máster en E-commerce y Marketing Digital", "centro": "The Power MBA", "anios": "2022 – 2023" },
+    { "titulo": "Grado en Publicidad, Marketing y Relaciones Públicas", "centro": "ESERP Business School", "anios": "2016 – 2020" }
+  ],
+  "idiomas": [
+    { "idioma": "Castellano", "nivel": "Nativo" },
+    { "idioma": "Catalán", "nivel": "Nativo" },
+    { "idioma": "Inglés", "nivel": "Avanzado" },
+    { "idioma": "Francés", "nivel": "Intermedio" }
+  ],
+  "habilidades": [
+    { "grupo": "Plataformas", "items": ["Shopify", "PrestaShop", "Google Analytics 4", "Microsoft Clarity", "SAP", "Microsoft 365"] },
+    { "grupo": "Marketing", "items": ["SEO", "CRO", "UX/UI", "Google Ads", "Meta Ads", "Marketplaces"] },
+    { "grupo": "Personas", "items": ["Comunicación con equipos", "Negociación con proveedores"] }
+  ]
+}

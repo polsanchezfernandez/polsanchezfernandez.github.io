@@ -1,10 +1,12 @@
 {
   "nombre": "Pol Sánchez",
+  "rol": "Ecommerce Manager en Lola Casademunt",
   "lema": "Viajes, proyectos y cosas que me hacen ilusión.",
-  "foto": "",
+  "foto": "/fotos/pol-avatar.jpg",
   "ubicacion": "Barcelona",
-  "bio": "Aquí va tu bio. Cuéntame cuatro cosas sobre ti y la escribo.",
+  "bio": "Soy Pol, de Barcelona. Llevo casi seis años en el ecommerce de moda: desde 2021 dirijo la tienda online de Lola Casademunt, donde hemos pasado de 500.000 € a 10,5 millones en ventas online, y desde 2026 formo parte de su comité de dirección.\n\nMe gusta entender por qué la gente compra (o no), probar cosas y medirlo todo. Fuera del trabajo, casi siempre estoy planeando el próximo viaje con la cuadrilla.\n\nEsta web es mi rincón para guardar esos viajes, los proyectos que me ilusionan y alguna que otra hazaña.",
   "enlaces": [
+    { "nombre": "LinkedIn", "url": "https://www.linkedin.com/in/polsanchezfernandez" },
     { "nombre": "GitHub", "url": "https://github.com/polsanchezfernandez" }
   ]
 }

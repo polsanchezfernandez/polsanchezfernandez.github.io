@@ -27,7 +27,7 @@ export async function saveAction(form: FormData) {
   const tipo = tipoDe(form);
   const data = JSON.parse(String(form.get("data") ?? "{}"));
   const titulo = String(data[TIPOS[tipo].titulo] ?? "");
-  const slug = tipo === "perfil" ? "perfil" : slugify(String(form.get("slug") || "") || titulo);
+  const slug = tipo === "perfil" || tipo === "cv" ? tipo : slugify(String(form.get("slug") || "") || titulo);
   await saveItem({ tipo, slug, data }, String(form.get("slugAnterior") || "") || undefined);
   revalidatePath("/", "layout");
   redirect(`/admin?ok=1`);

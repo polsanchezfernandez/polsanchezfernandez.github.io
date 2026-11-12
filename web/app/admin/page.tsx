@@ -34,6 +34,12 @@ export default async function Admin({ searchParams }: { searchParams: Promise<{ 
             Editar
           </Link>
         </div>
+        <div className="admin-row">
+          <h2>CV</h2>
+          <Link className="btn" href="/admin/cv/cv">
+            Editar
+          </Link>
+        </div>
       </section>
 
       {grupos.map(([tipo, items]) => (

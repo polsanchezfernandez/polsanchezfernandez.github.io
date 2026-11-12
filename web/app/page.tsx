@@ -17,7 +17,18 @@ export default async function Home() {
       <section className="hero">
         {p.foto && <img className="avatar" src={p.foto} alt="" />}
         <h1>{p.lema || `Hola, soy ${p.nombre || "Pol"}.`}</h1>
-        {p.ubicacion && <p className="muted">📍 {p.ubicacion}</p>}
+        <p className="hero-meta">
+          {p.rol && <span>{p.rol}</span>}
+          {p.ubicacion && <span>📍 {p.ubicacion}</span>}
+        </p>
+        <p className="hero-links">
+          <Link className="btn primary" href="/cv">
+            Ver mi CV
+          </Link>
+          <Link className="btn" href="/sobre-mi">
+            Sobre mí
+          </Link>
+        </p>
       </section>
 
       {proximo && (

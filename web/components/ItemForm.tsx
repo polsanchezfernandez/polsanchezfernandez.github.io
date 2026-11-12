@@ -24,7 +24,7 @@ export default function ItemForm({
       <input type="hidden" name="tipo" value={tipo} />
       <input type="hidden" name="slugAnterior" value={slug ?? ""} />
       <input type="hidden" name="data" value={JSON.stringify(data)} />
-      {tipo !== "perfil" && (
+      {tipo !== "perfil" && tipo !== "cv" && (
         <label className="field">
           <span>Dirección (slug)</span>
           <input name="slug" defaultValue={slug} placeholder="se genera del título si lo dejas vacío" />

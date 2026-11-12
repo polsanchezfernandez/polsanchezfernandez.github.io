@@ -8,7 +8,7 @@ export type Field =
   | { name: string; label: string; type: "check" }
   | { name: string; label: string; type: "list"; itemLabel: string; fields: Field[] };
 
-export type Tipo = "viaje" | "proyecto" | "hazana" | "interes" | "perfil";
+export type Tipo = "viaje" | "proyecto" | "hazana" | "interes" | "perfil" | "cv";
 
 export type Item = {
   tipo: Tipo;
@@ -157,18 +157,95 @@ export const TIPOS: Record<Tipo, { singular: string; plural: string; titulo: str
     titulo: "nombre",
     fields: [
       { name: "nombre", label: "Nombre", type: "text" },
+      { name: "rol", label: "A qué me dedico", type: "text", hint: "Ej: Ecommerce Manager en Lola Casademunt" },
       { name: "lema", label: "Frase de portada", type: "text" },
       { name: "foto", label: "Foto", type: "image" },
       { name: "bio", label: "Bio", type: "textarea" },
       { name: "ubicacion", label: "Dónde vivo", type: "text" },
       {
         name: "enlaces",
-        label: "Enlaces",
+        label: "Dónde encontrarme",
         type: "list",
         itemLabel: "Enlace",
         fields: [
           { name: "nombre", label: "Nombre", type: "text" },
           { name: "url", label: "URL", type: "url" },
+        ],
+      },
+    ],
+  },
+  cv: {
+    singular: "CV",
+    plural: "CV",
+    titulo: "rol",
+    fields: [
+      { name: "rol", label: "Puesto", type: "text" },
+      { name: "resumen", label: "Resumen", type: "textarea" },
+      {
+        name: "cifras",
+        label: "Cifras destacadas",
+        type: "list",
+        itemLabel: "Cifra",
+        fields: [
+          { name: "valor", label: "Valor", type: "text", hint: "Ej: ×21" },
+          { name: "texto", label: "Qué significa", type: "text" },
+        ],
+      },
+      {
+        name: "experiencia",
+        label: "Experiencia",
+        type: "list",
+        itemLabel: "Puesto",
+        fields: [
+          { name: "puesto", label: "Puesto", type: "text" },
+          { name: "empresa", label: "Empresa", type: "text" },
+          { name: "descripcionEmpresa", label: "Sobre la empresa", type: "text" },
+          { name: "lugar", label: "Lugar", type: "text" },
+          { name: "desde", label: "Desde", type: "text", hint: "Ej: 2021" },
+          { name: "hasta", label: "Hasta", type: "text", hint: "Vacío si es el actual" },
+          { name: "logros", label: "Logros", type: "textarea", hint: "Uno por línea" },
+        ],
+      },
+      {
+        name: "proyectos",
+        label: "Proyectos clave",
+        type: "list",
+        itemLabel: "Proyecto",
+        fields: [
+          { name: "titulo", label: "Título", type: "text" },
+          { name: "anio", label: "Año", type: "text" },
+          { name: "texto", label: "Descripción", type: "textarea" },
+        ],
+      },
+      {
+        name: "formacion",
+        label: "Formación",
+        type: "list",
+        itemLabel: "Estudio",
+        fields: [
+          { name: "titulo", label: "Título", type: "text" },
+          { name: "centro", label: "Centro", type: "text" },
+          { name: "anios", label: "Años", type: "text" },
+        ],
+      },
+      {
+        name: "idiomas",
+        label: "Idiomas",
+        type: "list",
+        itemLabel: "Idioma",
+        fields: [
+          { name: "idioma", label: "Idioma", type: "text" },
+          { name: "nivel", label: "Nivel", type: "text" },
+        ],
+      },
+      {
+        name: "habilidades",
+        label: "Habilidades",
+        type: "list",
+        itemLabel: "Grupo",
+        fields: [
+          { name: "grupo", label: "Grupo", type: "text" },
+          { name: "items", label: "Habilidades", type: "tags", hint: "Separadas por comas" },
         ],
       },
     ],
